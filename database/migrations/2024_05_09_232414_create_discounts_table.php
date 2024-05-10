@@ -18,7 +18,7 @@ return new class extends Migration
             $table->timestamp("discountCreateAt");
             $table->string("discountName");
             $table->string("discountDescription");
-            $table->timestamp("discountEndsAt");
+            $table->dateTime("discountEndsAt");
             $table->unsignedBigInteger("user_id");
             $table->unsignedBigInteger("place_id");
 
