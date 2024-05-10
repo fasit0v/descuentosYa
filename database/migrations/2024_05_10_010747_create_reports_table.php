@@ -13,17 +13,19 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('discounts', function (Blueprint $table) {
+        Schema::create('reports', function (Blueprint $table) {
             $table->id();
-            $table->timestamp("discountCreateAt");
-            $table->string("discountName");
-            $table->string("discountDescription");
-            $table->timestamp("discountEndsAt");
             $table->unsignedBigInteger("user_id");
-            $table->unsignedBigInteger("place_id");
+            $table->unsignedBigInteger("discount_id");
+            $table->string("reportDescription");
+            $table->string("reportImage")->nullable();
+            $table->timestamp("reportCreateAt");
+            $table->enum("reportState",["pendiente","analizada"]);
+            $table->enum("reportCause",["fraude", "ofensivo", "incorrecto"]);
 
             $table->foreign("user_id")->references("id")->on("users")->onDelete("cascade");
-            $table->foreign("place_id")->references("id")->on("places")->onDelete("cascade");
+            $table->foreign("discount_id")->references("id")->on("discounts")->onDelete("cascade");
+
         });
     }
 
@@ -34,6 +36,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('discounts');
+        Schema::dropIfExists('reports');
     }
 };
