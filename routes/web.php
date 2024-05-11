@@ -26,11 +26,11 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth'])->name('dashboard');
 
 Route::get('/reportes', function(){
     return Inertia::render("Report");
-})->middleware(["auth","verified"])->name("reportes");
+})->middleware(["auth"])->name("reportes");
 
 Route::resource("roles", RoleController::class)->only(["index", "store", "update", "destroy"])->middleware(["auth"]);
 

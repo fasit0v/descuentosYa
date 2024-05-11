@@ -6,6 +6,8 @@ import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
 import { Link } from "@inertiajs/react";
 
 export default function Authenticated({ auth, header, children }) {
+    console.log(auth);
+
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
 
