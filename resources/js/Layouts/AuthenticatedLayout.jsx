@@ -34,6 +34,12 @@ export default function Authenticated({ auth, header, children }) {
                                 >
                                     Reportes
                                 </NavLink>
+                                <NavLink
+                                    href={route("roles.index")}
+                                    active={route().current("roles.index")}
+                                >
+                                    Roles
+                                </NavLink>
                             </div>
                         </div>
 
@@ -137,6 +143,18 @@ export default function Authenticated({ auth, header, children }) {
                             active={route().current("dashboard")}
                         >
                             Dashboard
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            href={route("reportes")}
+                            active={route().current("reportes")}
+                        >
+                            Reportes
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            href={route("roles.index")}
+                            active={route().current("roles.index")}
+                        >
+                            Roles
                         </ResponsiveNavLink>
                     </div>
 
