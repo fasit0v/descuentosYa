@@ -8,9 +8,7 @@ use Inertia\Inertia;
 
 class RoleController extends Controller
 {
-
-
-    public function index(Request $request){
+    public function index(){
         return Inertia::render("Roles/index") ;
     }
 

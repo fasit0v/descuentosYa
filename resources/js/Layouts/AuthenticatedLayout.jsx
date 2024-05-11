@@ -30,18 +30,18 @@ export default function Authenticated({ auth, header, children }) {
                                 >
                                     Dashboard
                                 </NavLink>
-                                <NavLink
-                                    href={route("reportes")}
-                                    active={route().current("reportes")}
-                                >
-                                    Reportes
-                                </NavLink>
-                                <NavLink
-                                    href={route("roles.index")}
-                                    active={route().current("roles.index")}
-                                >
-                                    Roles
-                                </NavLink>
+                                {auth.availableRoutes.map((i) => (
+                                    <NavLink
+                                        href={route(`${i.moduleName}.index`)}
+                                        key={i.moduleName}
+                                        active={route().current(
+                                            `${i.moduleName}.index`
+                                        )}
+                                        className="capitalize"
+                                    >
+                                        {i.moduleName}
+                                    </NavLink>
+                                ))}
                             </div>
                         </div>
 
@@ -146,18 +146,18 @@ export default function Authenticated({ auth, header, children }) {
                         >
                             Dashboard
                         </ResponsiveNavLink>
-                        <ResponsiveNavLink
-                            href={route("reportes")}
-                            active={route().current("reportes")}
-                        >
-                            Reportes
-                        </ResponsiveNavLink>
-                        <ResponsiveNavLink
-                            href={route("roles.index")}
-                            active={route().current("roles.index")}
-                        >
-                            Roles
-                        </ResponsiveNavLink>
+                        {auth.availableRoutes.map((i) => (
+                            <ResponsiveNavLink
+                                href={route(`${i.moduleName}.index`)}
+                                key={i.moduleName}
+                                active={route().current(
+                                    `${i.moduleName}.index`
+                                )}
+                                className="capitalize"
+                            >
+                                {i.moduleName}
+                            </ResponsiveNavLink>
+                        ))}
                     </div>
 
                     <div className="pt-4 pb-1 border-t border-gray-200">

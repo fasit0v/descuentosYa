@@ -47,25 +47,24 @@ class HandleInertiaRequests extends Middleware
     }
 
     private function getPermissionsInRoute(Request $request){
-        return User::join('user_roles', 'users.id', '=', 'user_roles.user_id')
+        return $request->user()? User::join('user_roles', 'users.id', '=', 'user_roles.user_id')
     ->join('roles', 'user_roles.role_id', '=', 'roles.id')
     ->join('permissions', 'roles.id', '=', 'permissions.role_id')
     ->join('modules', 'modules.id', '=', 'permissions.module_id')
     ->select('permissions.id', 'permissions.canCreate', 'permissions.canRead', 'permissions.canUpdate', 'permissions.canDelete', 'modules.id', 'modules.moduleName', 'modules.moduleRoute')
     ->where('users.id', '=', $request->user()->id)
     ->where('modules.moduleRoute', '=', $request->route()->uri())
-    ->get();
-
+    ->get() : null;
     }
 
     private function getAvailableRoutes(Request $request){
-        return User::join('user_roles', 'users.id', '=', 'user_roles.user_id')
+        return $request->user()? User::join('user_roles', 'users.id', '=', 'user_roles.user_id')
     ->join('roles', 'user_roles.role_id', '=', 'roles.id')
     ->join('permissions', 'roles.id', '=', 'permissions.role_id')
     ->join("modules", "modules.id" , "=", "permissions.module_id")
     ->select("modules.moduleName")
-    ->where('users.id', "=",$request->user()->id)
+    ->where('users.id', "=",$request->user()->id )
     ->groupBy("modules.moduleName")
-    ->get();
+    ->get() : null;
     }
 }

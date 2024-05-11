@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\RoleController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -28,9 +29,8 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-Route::get('/reportes', function(){
-    return Inertia::render("Report");
-})->middleware(["auth"])->name("reportes");
+
+Route::resource("reportes", ReportController::class)->only(["index", "store", "update", "destroy"])->middleware(["auth"]);
 
 Route::resource("roles", RoleController::class)->only(["index", "store", "update", "destroy"])->middleware(["auth"]);
 
