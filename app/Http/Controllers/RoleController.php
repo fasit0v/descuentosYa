@@ -9,6 +9,7 @@ use Inertia\Inertia;
 class RoleController extends Controller
 {
     public function index(){
+        
         return Inertia::render("Roles/index") ;
     }
 

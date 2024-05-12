@@ -1,7 +1,13 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head } from "@inertiajs/react";
+import { Head, router } from "@inertiajs/react";
 
 export default function Role(props) {
+    console.log(props);
+
+    if (!props.auth.availableRoutes.some((i) => i.moduleName == "roles")) {
+        router.get("/");
+    }
+
     return (
         <AuthenticatedLayout
             auth={props.auth}

@@ -46,7 +46,7 @@ class HandleInertiaRequests extends Middleware
         ]);
     }
 
-    private function getPermissionsInRoute(Request $request){
+    public function getPermissionsInRoute(Request $request){
         return $request->user()? User::join('user_roles', 'users.id', '=', 'user_roles.user_id')
     ->join('roles', 'user_roles.role_id', '=', 'roles.id')
     ->join('permissions', 'roles.id', '=', 'permissions.role_id')
@@ -57,7 +57,7 @@ class HandleInertiaRequests extends Middleware
     ->get() : null;
     }
 
-    private function getAvailableRoutes(Request $request){
+    public function getAvailableRoutes(Request $request){
         return $request->user()? User::join('user_roles', 'users.id', '=', 'user_roles.user_id')
     ->join('roles', 'user_roles.role_id', '=', 'roles.id')
     ->join('permissions', 'roles.id', '=', 'permissions.role_id')
