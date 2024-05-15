@@ -22,9 +22,9 @@ use Inertia\Inertia;
 
 Route::get('/acerca', function () {
     return Inertia::render('Acerca');
-})->middleware(['auth'])->name('acerca');
+})->name('acerca');
 
-Route::resource('/', MapController::class)->only(["index", "store", "update", "destroy"])->middleware(['auth']);
+Route::resource('/', MapController::class)->only(["index", "store", "update", "destroy"]);
 
 Route::resource("reportes", ReportController::class)->only(["index", "store", "update", "destroy"])->middleware(["auth"]);
 
