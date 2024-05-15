@@ -1,7 +1,11 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head } from "@inertiajs/react";
+import { Head, router } from "@inertiajs/react";
 
 export default function Report(props) {
+    if (!props.auth.availableRoutes.some((i) => i.moduleName == "reportes")) {
+        router.get("/");
+    }
+
     return (
         <AuthenticatedLayout
             auth={props.auth}
@@ -12,7 +16,7 @@ export default function Report(props) {
                 </h2>
             }
         >
-            <Head title="Reportes de Descuentos" />
+            <Head title="Gestión de Reportes" />
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
