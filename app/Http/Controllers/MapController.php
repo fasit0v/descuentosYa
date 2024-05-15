@@ -7,8 +7,7 @@ use Inertia\Inertia;
 
 class MapController extends Controller
 {
-    public function index(){
-        
+    public function index(){        
         return Inertia::render("Home") ;
     }
 }
