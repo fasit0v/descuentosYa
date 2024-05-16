@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\MapController;
+use App\Http\Controllers\PermissionsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\RoleController;
@@ -29,6 +30,9 @@ Route::resource('/', MapController::class)->only(["index", "store", "update", "d
 Route::resource("reportes", ReportController::class)->only(["index", "store", "update", "destroy"])->middleware(["auth"]);
 
 Route::resource("roles", RoleController::class)->only(["index", "store", "update", "destroy"])->middleware(["auth"]);
+
+Route::get("/roles/{role}/permissions", [PermissionsController::class, "index"])->name("permissions.index");
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

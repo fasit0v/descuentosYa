@@ -45,8 +45,8 @@ export default function Authenticated({ auth, header, children }) {
                                                 `${i.moduleName}.index`
                                             )}
                                             key={i.moduleName}
-                                            active={route().current(
-                                                `${i.moduleName}.index`
+                                            active={url.startsWith(
+                                                `/${i.moduleName}`
                                             )}
                                             className="capitalize"
                                         >
@@ -109,7 +109,10 @@ export default function Authenticated({ auth, header, children }) {
                                 </div>
                             </>
                         ) : (
-                            <NavLink href={route("login")}>
+                            <NavLink
+                                className="hidden sm:flex"
+                                href={route("login")}
+                            >
                                 Iniciar Sesión
                             </NavLink>
                         )}
@@ -158,7 +161,7 @@ export default function Authenticated({ auth, header, children }) {
                     <div
                         className={
                             (showingNavigationDropdown ? "block" : "hidden") +
-                            " sm:hidden"
+                            " sm:hidden fixed bg-white z-50 right-0 shadow-2xl"
                         }
                     >
                         <div className="pt-4 pb-1 border-t border-gray-200">
@@ -196,7 +199,7 @@ export default function Authenticated({ auth, header, children }) {
                                             </ResponsiveNavLink>
                                         ))}
 
-                                        <div className="px-4 ">
+                                        <div className="px-4 border-t-2 py-4">
                                             <div className=" px-4 font-medium text-base text-gray-800">
                                                 {auth.user.name}
                                             </div>
@@ -224,7 +227,7 @@ export default function Authenticated({ auth, header, children }) {
                                         href={route("login")}
                                         className="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500"
                                     >
-                                        Log in
+                                        Iniciar Sesión
                                     </ResponsiveNavLink>
                                 </>
                             )}

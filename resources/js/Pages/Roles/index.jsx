@@ -1,5 +1,5 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, router } from "@inertiajs/react";
+import { Head, Link, router } from "@inertiajs/react";
 
 export default function Role(props) {
     console.log(props);
@@ -53,51 +53,65 @@ export default function Role(props) {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {props.roles.map((i) => (
-                                            <tr
-                                                key={i.id}
-                                                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
-                                            >
-                                                <th
-                                                    scope="row"
-                                                    className="px-6 py-4 font-medium capitalize text-gray-900 whitespace-nowrap dark:text-white"
+                                        {props.auth.permissionsInRoute.some(
+                                            (i) => i.canRead == 1
+                                        ) &&
+                                            props.roles.map((i) => (
+                                                <tr
+                                                    key={i.id}
+                                                    className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
                                                 >
-                                                    {i.roleName}
-                                                </th>
-                                                <td className="px-6 py-4 text-right">
-                                                    <a
-                                                        href="#"
-                                                        className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                                                    <th
+                                                        scope="row"
+                                                        className="px-6 py-4 font-medium capitalize text-gray-900 whitespace-nowrap dark:text-white"
                                                     >
-                                                        Usuarios
-                                                    </a>
-                                                </td>
-                                                <td className="px-6 py-4 text-right">
-                                                    <a
-                                                        href={router.get("")}
-                                                        className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                                                    >
-                                                        Permisos
-                                                    </a>
-                                                </td>
-                                                <td className="px-6 py-4 text-right">
-                                                    <a
-                                                        href="#"
-                                                        className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                                                    >
-                                                        Editar
-                                                    </a>
-                                                </td>
-                                                <td className="px-6 py-4 text-right">
-                                                    <a
-                                                        href="#"
-                                                        className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                                                    >
-                                                        Borrar
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        ))}
+                                                        {i.roleName}
+                                                    </th>
+                                                    {props.auth.permissionsInRoute.some(
+                                                        (i) => i.canUpdate == 1
+                                                    ) && (
+                                                        <td className="px-6 py-4 text-right">
+                                                            <a
+                                                                href="#"
+                                                                className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                                                            >
+                                                                Editar
+                                                            </a>
+                                                        </td>
+                                                    )}
+                                                    {props.auth.permissionsInRoute.some(
+                                                        (i) => i.canDelete == 1
+                                                    ) && (
+                                                        <td className="px-6 py-4 text-right">
+                                                            <a
+                                                                href="#"
+                                                                className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                                                            >
+                                                                Borrar
+                                                            </a>
+                                                        </td>
+                                                    )}
+                                                    <td className="px-6 py-4 text-right">
+                                                        <a
+                                                            href="#"
+                                                            className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                                                        >
+                                                            Usuarios
+                                                        </a>
+                                                    </td>
+                                                    <td className="px-6 py-4 text-right">
+                                                        <Link
+                                                            href={route(
+                                                                "permissions.index",
+                                                                { role: i.id }
+                                                            )}
+                                                            className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                                                        >
+                                                            Permisos
+                                                        </Link>
+                                                    </td>
+                                                </tr>
+                                            ))}
                                     </tbody>
                                 </table>
                             </div>
