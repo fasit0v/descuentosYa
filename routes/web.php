@@ -5,6 +5,7 @@ use App\Http\Controllers\PermissionsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserRoleController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -29,9 +30,13 @@ Route::resource('/', MapController::class)->only(["index", "store", "update", "d
 
 Route::resource("reportes", ReportController::class)->only(["index", "store", "update", "destroy"])->middleware(["auth"]);
 
-Route::resource("roles", RoleController::class)->only(["index", "store", "update", "destroy"])->middleware(["auth"]);
+
 
 Route::get("/roles/{role}/permissions", [PermissionsController::class, "index"])->name("permissions.index");
+
+
+Route::resource("roles", RoleController::class)->only(["index","show" ,"store", "update", "destroy"])->middleware(["auth"]);
+
 
 
 Route::middleware('auth')->group(function () {
