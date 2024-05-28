@@ -30,8 +30,6 @@ class RoleController extends Controller
         $permissions = Permissions::join("modules","modules.id", "=","permissions.module_id")->where("permissions.role_id", "=", $request->role)->select(["modules.moduleName", "permissions.canCreate","permissions.canRead","permissions.canUpdate","permissions.canDelete", "permissions.id"])->get();
         $users = Role::join("user_roles","user_roles.role_id", "=","roles.id")->join("users", "user_roles.user_id", "=", "users.id")->where("user_roles.role_id", "=", $request->role)->select(["users.name", "users.id" ])->get();
 
-        
-
         return Inertia::render("Roles/show",[
             "data" =>[
                 "role" => $role,

@@ -109,12 +109,32 @@ export default function Authenticated({ auth, header, children }) {
                                 </div>
                             </>
                         ) : (
-                            <NavLink
-                                className="hidden sm:flex"
-                                href={route("login")}
-                            >
-                                Iniciar Sesión
-                            </NavLink>
+                            <>
+                                <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                                    <NavLink
+                                        href={"/"}
+                                        replace
+                                        active={url === "/"}
+                                        className="capitalize"
+                                    >
+                                        Home
+                                    </NavLink>
+                                    <NavLink
+                                        href={"/acerca"}
+                                        replace
+                                        active={url === "/acerca"}
+                                        className="capitalize"
+                                    >
+                                        Acerca
+                                    </NavLink>
+                                </div>
+                                <NavLink
+                                    className="hidden sm:flex"
+                                    href={route("login")}
+                                >
+                                    Iniciar Sesión
+                                </NavLink>
+                            </>
                         )}
 
                         <div className="-mr-2 flex items-center sm:hidden">
@@ -223,12 +243,30 @@ export default function Authenticated({ auth, header, children }) {
                                 </>
                             ) : (
                                 <>
-                                    <ResponsiveNavLink
-                                        href={route("login")}
-                                        className="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500"
-                                    >
-                                        Iniciar Sesión
-                                    </ResponsiveNavLink>
+                                    <div className="mt-3 space-y-1">
+                                        <ResponsiveNavLink
+                                            href={"/"}
+                                            replace
+                                            active={url === "/"}
+                                            className="capitalize"
+                                        >
+                                            Home
+                                        </ResponsiveNavLink>
+                                        <ResponsiveNavLink
+                                            href={"/acerca"}
+                                            replace
+                                            active={url === "/acerca"}
+                                            className="capitalize"
+                                        >
+                                            Acerca
+                                        </ResponsiveNavLink>
+                                        <ResponsiveNavLink
+                                            href={route("login")}
+                                            className="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500"
+                                        >
+                                            Iniciar Sesión
+                                        </ResponsiveNavLink>
+                                    </div>
                                 </>
                             )}
                         </div>
