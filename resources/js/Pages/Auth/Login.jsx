@@ -96,7 +96,7 @@ export default function Login({ status, canResetPassword }) {
                     {canResetPassword && (
                         <Link
                             href={route("password.request")}
-                            className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                            className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
                         >
                             He olvidado la contraseña
                         </Link>
@@ -107,15 +107,13 @@ export default function Login({ status, canResetPassword }) {
                     </PrimaryButton>
                 </div>
             </form>
-            <h2>
-                ¿No tienes cuenta?{" "}
-                <Link
-                    href={route("password.request")}
-                    className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                >
-                    Regístrate
-                </Link>
-            </h2>
+
+            <Link
+                href={route("register")}
+                className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
+            >
+                ¿No tienes cuenta? Regístrate
+            </Link>
         </GuestLayout>
     );
 }

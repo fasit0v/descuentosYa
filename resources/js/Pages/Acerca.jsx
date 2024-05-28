@@ -11,20 +11,37 @@ export default function Dashboard(props) {
         slidesToScroll: 1,
     };
     return (
-        <AuthenticatedLayout
-            auth={props.auth}
-            errors={props.errors}
-            header={
-                <h2 className="font-semibold text-xl text-gray-800 leading-tight">
-                    Mapa
-                </h2>
-            }
-        >
+        <AuthenticatedLayout auth={props.auth} errors={props.errors}>
             <Head title="Acerca" />
             <div className="bg-white p-8">
                 <h1 className="text-4xl font-bold text-center text-orange-600 mb-8">
                     Acerca de Nosotros
                 </h1>
+                <div className="mb-8">
+                    <Slider {...settings}>
+                        <div>
+                            <img
+                                src="https://via.placeholder.com/800x400"
+                                alt="Imagen 1"
+                                className="w-full h-64 object-cover"
+                            />
+                        </div>
+                        <div>
+                            <img
+                                src="https://via.placeholder.com/800x400"
+                                alt="Imagen 2"
+                                className="w-full h-64 object-cover"
+                            />
+                        </div>
+                        <div>
+                            <img
+                                src="https://via.placeholder.com/800x400"
+                                alt="Imagen 3"
+                                className="w-full h-64 object-cover"
+                            />
+                        </div>
+                    </Slider>
+                </div>
                 <div className="max-w-4xl mx-auto">
                     <p className="text-lg mb-6">
                         ¡Saludos! Somos el equipo de desarrollo Lamba, y nuestra
@@ -85,35 +102,6 @@ export default function Dashboard(props) {
                             Gracias por confiar en Lamba. ¡Vamos a ahorrar
                             juntos!
                         </p>
-                    </div>
-
-                    <div className="mb-8">
-                        <h2 className="text-2xl font-semibold text-gray-800 mb-4">
-                            Galería
-                        </h2>
-                        <Slider {...settings}>
-                            <div>
-                                <img
-                                    src="https://via.placeholder.com/800x400"
-                                    alt="Imagen 1"
-                                    className="w-full h-64 object-cover"
-                                />
-                            </div>
-                            <div>
-                                <img
-                                    src="https://via.placeholder.com/800x400"
-                                    alt="Imagen 2"
-                                    className="w-full h-64 object-cover"
-                                />
-                            </div>
-                            <div>
-                                <img
-                                    src="https://via.placeholder.com/800x400"
-                                    alt="Imagen 3"
-                                    className="w-full h-64 object-cover"
-                                />
-                            </div>
-                        </Slider>
                     </div>
                 </div>
             </div>
