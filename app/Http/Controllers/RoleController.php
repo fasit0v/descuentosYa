@@ -6,8 +6,11 @@ namespace App\Http\Controllers;
 use App\Models\Permissions;
 use App\Models\Role;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
+
+use function PHPUnit\Framework\throwException;
 
 class RoleController extends Controller
 {
@@ -52,7 +55,19 @@ class RoleController extends Controller
             "role" => $role
         ]) ;
     }
-    public function destroy(){
-        return Inertia::render("Roles/destroy") ;
+    public function destroy(Request $request)
+    {
+        $request->validate([
+            'roleName' => ['required'],
+            "id"=>["required"]
+        ]);
+
+        $role = Role::select("id")->where("id", "=",$request->id)->where("roleName", "=", $request->roleName);
+        if (!$role) {
+            return Inertia::expects();
+        }
+        
+        Role::destroy($request->id);
+        return Redirect::to('/');
     }
 }

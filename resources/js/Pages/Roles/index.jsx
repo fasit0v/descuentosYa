@@ -1,6 +1,7 @@
 import NavLink from "@/Components/NavLink";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link, router } from "@inertiajs/react";
+import DeleteRoleForm from "./partials/DeleteRoleForm";
 
 export default function Role(props) {
     if (!props.auth.availableRoutes.some((i) => i.moduleName == "roles")) {
@@ -87,12 +88,10 @@ export default function Role(props) {
                                                                 i.canDelete == 1
                                                         ) && (
                                                             <td className="px-6 py-4 text-right">
-                                                                <a
-                                                                    href="#"
-                                                                    className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                                                                >
-                                                                    Borrar
-                                                                </a>
+                                                                <DeleteRoleForm
+                                                                    className="max-w-xl"
+                                                                    id={i.id}
+                                                                />
                                                             </td>
                                                         )}
 
