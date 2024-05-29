@@ -28,7 +28,7 @@ class RoleController extends Controller
         ]) ;
     }
 
-    public function show(Request $request){
+    public function show(Request $request ){
         $role = Role::findOrFail($request->role);
         $permissions = Permissions::join("modules","modules.id", "=","permissions.module_id")->where("permissions.role_id", "=", $request->role)->select(["modules.moduleName", "permissions.canCreate","permissions.canRead","permissions.canUpdate","permissions.canDelete", "permissions.id"])->get();
         $users = Role::join("user_roles","user_roles.role_id", "=","roles.id")->join("users", "user_roles.user_id", "=", "users.id")->where("user_roles.role_id", "=", $request->role)->select(["users.name", "users.id" ])->get();
@@ -42,8 +42,14 @@ class RoleController extends Controller
         ]) ;
     }
 
-    public function store(){
-        return Inertia::render("Roles/store") ;
+    public function store(Request $request){
+
+        $request->validate([
+            'roleName' => ['required', "unique:roles,roleName"],
+        ]);
+
+        $lastId = Role::insertGetId(["roleName"=>$request->roleName]);
+        return Redirect::route("roles.show",["role"=>$lastId] );
     }
 
 
@@ -62,12 +68,7 @@ class RoleController extends Controller
             "id"=>["required"]
         ]);
 
-        $role = Role::select("id")->where("id", "=",$request->id)->where("roleName", "=", $request->roleName);
-        if (!$role) {
-            return Inertia::expects();
-        }
-        
-        Role::destroy($request->id);
-        return Redirect::to('/');
+        Role::select("id")->where("id", "=",$request->id)->where("roleName", "=", $request->roleName)->delete();
+        return Redirect::to('/roles');
     }
 }

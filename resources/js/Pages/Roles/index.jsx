@@ -2,6 +2,7 @@ import NavLink from "@/Components/NavLink";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link, router } from "@inertiajs/react";
 import DeleteRoleForm from "./partials/DeleteRoleForm";
+import CreateRoleForm from "./partials/CreateRoleForm";
 
 export default function Role(props) {
     if (!props.auth.availableRoutes.some((i) => i.moduleName == "roles")) {
@@ -25,8 +26,11 @@ export default function Role(props) {
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                        <div className="p-6 text-gray-900">
-                            <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+                        <div className="p-4 text-gray-900">
+                            {props.auth.permissionsInRoute.some(
+                                (i) => i.canCreate == 1
+                            ) && <CreateRoleForm />}
+                            <div className="relative overflow-x-auto shadow-md sm:rounded-lg mt-4">
                                 {props.auth.permissionsInRoute.some(
                                     (i) => i.canRead == 1
                                 ) && (
@@ -91,6 +95,9 @@ export default function Role(props) {
                                                                 <DeleteRoleForm
                                                                     className="max-w-xl"
                                                                     id={i.id}
+                                                                    roleName={
+                                                                        i.roleName
+                                                                    }
                                                                 />
                                                             </td>
                                                         )}
