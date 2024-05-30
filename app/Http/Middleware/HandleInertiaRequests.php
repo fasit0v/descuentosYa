@@ -53,7 +53,7 @@ class HandleInertiaRequests extends Middleware
     ->join('modules', 'modules.id', '=', 'permissions.module_id')
     ->select('permissions.id', 'permissions.canCreate', 'permissions.canRead', 'permissions.canUpdate', 'permissions.canDelete', 'modules.id', 'modules.moduleName', 'modules.moduleRoute')
     ->where('users.id', '=', $request->user()->id)
-    ->where('modules.moduleName', '=', $request->route()->uri())
+    ->where('modules.moduleName', '=', explode("/",$request->route()->uri())[0] )
     ->get() : null;
     }
 

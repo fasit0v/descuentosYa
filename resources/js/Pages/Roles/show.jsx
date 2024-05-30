@@ -1,3 +1,4 @@
+import Checkbox from "@/Components/Checkbox";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link, router } from "@inertiajs/react";
 
@@ -50,50 +51,73 @@ export default function Show(props) {
                             </svg>
                         </Link>
                         {permissions ? (
-                            permissions.map((i) => (
-                                <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                                    <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                                        <tr>
-                                            <th
-                                                scope="col"
-                                                className="px-6 py-3"
-                                            >
-                                                Nombre
-                                            </th>
-                                            <th
-                                                scope="col"
-                                                className="px-6 py-3"
-                                            ></th>
-                                            <th
-                                                scope="col"
-                                                className="px-6 py-3"
-                                            ></th>
-                                            <th
-                                                scope="col"
-                                                className="px-6 py-3"
-                                            ></th>
-                                            <th
-                                                scope="col"
-                                                className="px-6 py-3"
-                                            ></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
+                            <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                    <tr>
+                                        <th scope="col" className="px-6 py-3">
+                                            Modulo
+                                        </th>
+                                        <th scope="col" className="px-6 py-3">
+                                            Crear
+                                        </th>
+                                        <th scope="col" className="px-6 py-3">
+                                            Leer
+                                        </th>
+                                        <th scope="col" className="px-6 py-3">
+                                            Actualizar
+                                        </th>
+                                        <th scope="col" className="px-6 py-3">
+                                            Borrar
+                                        </th>
+                                        <th
+                                            scope="col"
+                                            className="px-6 py-3"
+                                        ></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {permissions.map((i) => (
                                         <tr
                                             key={i.id}
                                             className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
                                         >
-                                            <th
+                                            <td
                                                 scope="row"
-                                                className="px-6 py-4 font-medium capitalize text-gray-900 whitespace-nowrap dark:text-white"
+                                                className="px-6 py-4 font-medium capitalize text-gray-900 wditespace-nowrap dark:text-white"
                                             >
                                                 {i.moduleName}
-                                            </th>
-                                            <th
-                                                scope="row"
-                                                className="px-6 py-4 font-medium capitalize text-gray-900 whitespace-nowrap dark:text-white"
+                                            </td>
+                                            <td
+                                                scope="col"
+                                                className="px-6 py-3"
                                             >
-                                                hola
+                                                <Checkbox
+                                                    defaultChecked={i.canCreate}
+                                                />
+                                            </td>
+                                            <td
+                                                scope="col"
+                                                className="px-6 py-3"
+                                            >
+                                                <Checkbox
+                                                    defaultChecked={i.canCreate}
+                                                />
+                                            </td>
+                                            <td
+                                                scope="col"
+                                                className="px-6 py-3"
+                                            >
+                                                <Checkbox
+                                                    defaultChecked={i.canCreate}
+                                                />
+                                            </td>
+                                            <th
+                                                scope="col"
+                                                className="px-6 py-3"
+                                            >
+                                                <Checkbox
+                                                    defaultChecked={i.canCreate}
+                                                />
                                             </th>
                                             {props.auth.permissionsInRoute.some(
                                                 (i) => i.canDelete == 1
@@ -107,21 +131,10 @@ export default function Show(props) {
                                                     </a>
                                                 </td>
                                             )}
-
-                                            <td className="px-6 py-4 text-right">
-                                                <Link
-                                                    href={route("roles.show", {
-                                                        role: i.id,
-                                                    })}
-                                                    className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                                                >
-                                                    Detalles
-                                                </Link>
-                                            </td>
                                         </tr>
-                                    </tbody>
-                                </table>
-                            ))
+                                    ))}
+                                </tbody>
+                            </table>
                         ) : (
                             <h3>No hay Permisos</h3>
                         )}

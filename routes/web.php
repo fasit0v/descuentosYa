@@ -32,7 +32,6 @@ Route::resource("reportes", ReportController::class)->only(["index", "store", "u
 
 
 
-Route::get("/roles/{role}/permissions", [PermissionsController::class, "index"])->name("permissions.index");
 
 
 Route::resource("roles", RoleController::class)->only(["index","show" ,"store", "update", "destroy"])->middleware(["auth"]);

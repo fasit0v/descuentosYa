@@ -23,20 +23,12 @@ function CreateRoleForm() {
     const confirmRole = (e) => {
         e.preventDefault();
 
-        post(
-            route("roles.store"),
-            {
-                roleName: data.roleName,
-            },
-            {
-                preserveScroll: true,
-                onSuccess: () => {
-                    closeModal();
-                },
-                onError: () => roleNameInput.current.focus(),
-                onFinish: () => reset(),
-            }
-        );
+        post("/roles", {
+            preserveScroll: true,
+            preserveState: false,
+            onError: () => roleNameInput.current.focus(),
+            onFinish: () => reset(),
+        });
     };
 
     const closeModal = () => {

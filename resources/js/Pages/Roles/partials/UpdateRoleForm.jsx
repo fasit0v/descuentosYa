@@ -6,64 +6,49 @@ import Modal from "@/Components/Modal";
 import SecondaryButton from "@/Components/SecondaryButton";
 import TextInput from "@/Components/TextInput";
 import { router, useForm } from "@inertiajs/react";
+import PrimaryButton from "@/Components/PrimaryButton";
 
-function DeleteRoleForm({ id, roleName }) {
-    const [confirmingRoleDeletion, setConfirmingRoleDeletion] = useState(false);
-    const passwordInput = useRef();
+function UpdateRoleForm({ roleName, id }) {
+    const [confirmingRoleUpdate, setConfirmingRoleUpdate] = useState(false);
+    const roleNameInput = useRef();
 
-    const {
-        data,
-        setData,
-        delete: destroy,
-        processing,
-        reset,
-        errors,
-    } = useForm({
-        roleName: "",
+    const { data, setData, put, processing, reset, errors } = useForm({
+        roleName: roleName,
         id: id,
     });
 
-    const confirmRoleDeletion = () => {
-        setConfirmingRoleDeletion(true);
+    const confirmUserUpdate = () => {
+        setConfirmingRoleUpdate(true);
     };
 
-    const deleteRole = (e) => {
+    const confirmRole = (e) => {
         e.preventDefault();
 
-        destroy(`/roles/${id}`, {
+        put(`/roles/${id}`, {
             preserveScroll: true,
             preserveState: false,
             onSuccess: () => {
                 closeModal();
-                router.reload();
             },
-            onError: () => passwordInput.current.focus(),
-            onFinish: () => reset(),
+            onError: () => roleNameInput.current.focus(),
         });
     };
 
     const closeModal = () => {
-        setConfirmingRoleDeletion(false);
+        setConfirmingRoleUpdate(false);
 
         reset();
     };
 
     return (
         <>
-            <DangerButton onClick={confirmRoleDeletion}>Borrar</DangerButton>
+            <PrimaryButton onClick={confirmUserUpdate}>Editar</PrimaryButton>
 
-            <Modal show={confirmingRoleDeletion} onClose={closeModal}>
-                <form onSubmit={deleteRole} className="p-6">
+            <Modal show={confirmingRoleUpdate} onClose={closeModal}>
+                <form onSubmit={confirmRole} className="p-6">
                     <h2 className="text-lg font-medium text-gray-900">
-                        ¿Estas seguro de borrar el Rol {roleName}?
+                        Actualizar Rol
                     </h2>
-
-                    <p className="mt-1 text-sm text-gray-600">
-                        Una vez que se elimine el rol, todos sus recursos y
-                        datos serán eliminados permanentemente. Por favor,
-                        ingrese el nombre para confirmar que desea eliminar el
-                        rol de forma permanente.
-                    </p>
 
                     <div className="mt-6">
                         <InputLabel
@@ -76,12 +61,12 @@ function DeleteRoleForm({ id, roleName }) {
                             id="roleName"
                             type="roleName"
                             name="roleName"
-                            ref={passwordInput}
+                            ref={roleNameInput}
                             value={data.roleName}
                             onChange={(e) =>
                                 setData("roleName", e.target.value)
                             }
-                            className="mt-1 block w-3/4 p-2"
+                            className="mt-1 block w-3/4 p-4 "
                             isFocused
                             placeholder="Nombre del Rol"
                         />
@@ -97,8 +82,11 @@ function DeleteRoleForm({ id, roleName }) {
                             Cancelar
                         </SecondaryButton>
 
-                        <DangerButton className="ml-3" disabled={processing}>
-                            Borrar Rol
+                        <DangerButton
+                            className="ml-3 bg-orange-400 hover:bg-blue-400"
+                            disabled={processing}
+                        >
+                            Actualizar Rol
                         </DangerButton>
                     </div>
                 </form>
@@ -107,4 +95,4 @@ function DeleteRoleForm({ id, roleName }) {
     );
 }
 
-export default DeleteRoleForm;
+export default UpdateRoleForm;

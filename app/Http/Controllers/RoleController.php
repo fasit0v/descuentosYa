@@ -49,17 +49,20 @@ class RoleController extends Controller
         ]);
 
         $lastId = Role::insertGetId(["roleName"=>$request->roleName]);
-        return Redirect::route("roles.show",["role"=>$lastId] );
+        return to_route("roles.show",["role"=>$lastId] );
     }
 
 
     public function update(Request $request){
 
-        $role = Role::find($request->role);
+        $request->validate([
+            'roleName' => ['required', "unique:roles,roleName"],
+            'id' => ['required'],
+        ]);
 
-        return Inertia::render("Roles/update",[
-            "role" => $role
-        ]) ;
+
+        Role::where("id", "=", $request->id)->update(["roleName"=>$request->roleName]);
+
     }
     public function destroy(Request $request)
     {
