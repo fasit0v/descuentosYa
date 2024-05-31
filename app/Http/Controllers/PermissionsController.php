@@ -55,5 +55,10 @@ class PermissionsController extends Controller
             return redirect()->back()->with('error', 'An unexpected error occurred: ' . $e->getMessage());
         }
     }
+
+
+    public function destroy(){
+        
+    }
 }
 

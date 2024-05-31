@@ -2,6 +2,7 @@ import Checkbox from "@/Components/Checkbox";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link, router } from "@inertiajs/react";
 import CreatePermissionForm from "./partialsPermissions/createPermissionForm";
+import DeletePermissionForm from "./partialsPermissions/deletePermissionForm";
 
 export default function Show(props) {
     if (!props.auth.availableRoutes.some((i) => i.moduleName == "roles")) {
@@ -100,10 +101,6 @@ export default function Show(props) {
                                             >
                                                 Borrar
                                             </th>
-                                            <th
-                                                scope="col"
-                                                className="px-6 py-3"
-                                            ></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -146,7 +143,7 @@ export default function Show(props) {
                                                 >
                                                     <Checkbox
                                                         defaultChecked={
-                                                            i.canDelete
+                                                            i.canUpdate
                                                         }
                                                         disabled
                                                     />
@@ -157,21 +154,35 @@ export default function Show(props) {
                                                 >
                                                     <Checkbox
                                                         defaultChecked={
-                                                            i.canUpdate
+                                                            i.canDelete
                                                         }
                                                         disabled
                                                     />
                                                 </th>
                                                 {props.auth.permissionsInRoute.some(
-                                                    (i) => i.canDelete == 1
+                                                    (i) => i.canUpdate == 1
                                                 ) && (
                                                     <td className="px-6 py-4 text-right">
                                                         <a
                                                             href="#"
                                                             className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                                                         >
-                                                            Borrar
+                                                            Actualizar
                                                         </a>
+                                                    </td>
+                                                )}
+
+                                                {props.auth.permissionsInRoute.some(
+                                                    (i) => i.canDelete == 1
+                                                ) && (
+                                                    <td className="px-6 py-4 text-right">
+                                                        <DeletePermissionForm
+                                                            id={i.id}
+                                                            moduleName={
+                                                                i.moduleName
+                                                            }
+                                                            roleId={role.id}
+                                                        />
                                                     </td>
                                                 )}
                                             </tr>
