@@ -10,12 +10,26 @@ use Inertia\Response;
 
 class PermissionsController extends Controller
 {
-    public function index(Request $request):Response{
+    public function store(Request $request){
+        $request->validate(["moduleId"=>["required"],
+        "roleId"=>["required"],
+        "canCreate"=>["required"],
+        "canRead"=>["required"],
+        "canUpdate"=>["required"],
+        "canDelete"=>["required"]]);
+        
+        $permissionRepeat = Permissions::where("modules_id","=", $request->moduleId)->where("roles_id", "=", $request->roleId)->get();
 
-        $permission = Permissions::join("modules","modules.id", "=","permissions.module_id")->where("permissions.role_id", "=", $request->role)->get();
-
-        return Inertia::render("Roles/Permissions/index",[
-            "permissions" => $permission
-        ]);
+        if (!$permissionRepeat){
+            Permissions::create([
+                "roleId"=>$request->roleId,
+                "moduleId"=>$request->moduleId,
+                "canCreate"=>$request->canCreate,
+                "canRead"=>$request->canRead,
+                "canUpdate"=>$request->canUpdate,
+                "canDelete"=>$request->canDelete
+            ]);
+        }
     }
+
 }

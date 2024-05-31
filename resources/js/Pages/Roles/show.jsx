@@ -1,13 +1,14 @@
 import Checkbox from "@/Components/Checkbox";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link, router } from "@inertiajs/react";
+import CreatePermissionForm from "./partialsPermissions/createPermissionForm";
 
 export default function Show(props) {
     if (!props.auth.availableRoutes.some((i) => i.moduleName == "roles")) {
         router.get("/");
     }
 
-    const { role, permissions, users } = props.data;
+    const { role, permissions, users, modules } = props.data;
 
     console.log(props);
 
@@ -26,30 +27,40 @@ export default function Show(props) {
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg p-4">
-                        <Link href="/roles">
-                            <svg
-                                className="w-10 h-10 ml-4 mt-4"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                            >
-                                <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
-                                <g
-                                    id="SVGRepo_tracerCarrier"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                ></g>
-                                <g id="SVGRepo_iconCarrier">
-                                    <path
-                                        d="M6 12H18M6 12L11 7M6 12L11 17"
-                                        stroke="#000000"
-                                        strokeWidth="2"
+                        <div className="flex justify-between align-middle py-4">
+                            <Link href="/roles">
+                                <svg
+                                    className="w-10 h-10 "
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <g
+                                        id="SVGRepo_bgCarrier"
+                                        strokeWidth="0"
+                                    ></g>
+                                    <g
+                                        id="SVGRepo_tracerCarrier"
                                         strokeLinecap="round"
                                         strokeLinejoin="round"
-                                    ></path>
-                                </g>
-                            </svg>
-                        </Link>
+                                    ></g>
+                                    <g id="SVGRepo_iconCarrier">
+                                        <path
+                                            d="M6 12H18M6 12L11 7M6 12L11 17"
+                                            stroke="#000000"
+                                            strokeWidth="2"
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                        ></path>
+                                    </g>
+                                </svg>
+                            </Link>
+                            <CreatePermissionForm
+                                id={role.id}
+                                modules={modules}
+                                roleName={role.roleName}
+                            />
+                        </div>
                         {permissions ? (
                             <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">

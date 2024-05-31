@@ -70,19 +70,26 @@ export default function Role(props) {
                                                         >
                                                             {i.roleName}
                                                         </td>
-                                                        <td className="px-6 py-4 text-right">
-                                                            <Link
-                                                                href={route(
-                                                                    "roles.show",
-                                                                    {
-                                                                        role: i.id,
-                                                                    }
-                                                                )}
-                                                                className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                                                            >
-                                                                Detalles
-                                                            </Link>
-                                                        </td>
+                                                        {props.auth.permissionsInRoute.some(
+                                                            (i) =>
+                                                                i.canDelete ==
+                                                                    1 &&
+                                                                i.canUpdate == 1
+                                                        ) && (
+                                                            <td className="px-6 py-4 text-right">
+                                                                <Link
+                                                                    href={route(
+                                                                        "roles.show",
+                                                                        {
+                                                                            role: i.id,
+                                                                        }
+                                                                    )}
+                                                                    className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                                                                >
+                                                                    Detalles
+                                                                </Link>
+                                                            </td>
+                                                        )}
                                                         {props.auth.permissionsInRoute.some(
                                                             (i) =>
                                                                 i.canUpdate == 1
