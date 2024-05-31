@@ -10,15 +10,13 @@ export default function Show(props) {
 
     const { role, permissions, users, modules } = props.data;
 
-    console.log(props);
-
     return (
         <AuthenticatedLayout
             auth={props.auth}
             errors={props.errors}
             header={
                 <h2 className="capitalize font-semibold text-xl text-gray-800 leading-tight">
-                    {role.roleName}
+                    Rol "{role.roleName}"
                 </h2>
             }
         >
@@ -55,97 +53,132 @@ export default function Show(props) {
                                     </g>
                                 </svg>
                             </Link>
-                            <CreatePermissionForm
-                                id={role.id}
-                                modules={modules}
-                                roleName={role.roleName}
-                            />
+
+                            {props.auth.permissionsInRoute.some(
+                                (i) => i.canCreate == 1
+                            ) && (
+                                <CreatePermissionForm
+                                    id={role.id}
+                                    modules={modules}
+                                    roleName={role.roleName}
+                                />
+                            )}
                         </div>
                         {permissions ? (
-                            <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                                <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                                    <tr>
-                                        <th scope="col" className="px-6 py-3">
-                                            Modulo
-                                        </th>
-                                        <th scope="col" className="px-6 py-3">
-                                            Crear
-                                        </th>
-                                        <th scope="col" className="px-6 py-3">
-                                            Leer
-                                        </th>
-                                        <th scope="col" className="px-6 py-3">
-                                            Actualizar
-                                        </th>
-                                        <th scope="col" className="px-6 py-3">
-                                            Borrar
-                                        </th>
-                                        <th
-                                            scope="col"
-                                            className="px-6 py-3"
-                                        ></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {permissions.map((i) => (
-                                        <tr
-                                            key={i.id}
-                                            className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
-                                        >
-                                            <td
-                                                scope="row"
-                                                className="px-6 py-4 font-medium capitalize text-gray-900 wditespace-nowrap dark:text-white"
-                                            >
-                                                {i.moduleName}
-                                            </td>
-                                            <td
-                                                scope="col"
-                                                className="px-6 py-3"
-                                            >
-                                                <Checkbox
-                                                    defaultChecked={i.canCreate}
-                                                />
-                                            </td>
-                                            <td
-                                                scope="col"
-                                                className="px-6 py-3"
-                                            >
-                                                <Checkbox
-                                                    defaultChecked={i.canCreate}
-                                                />
-                                            </td>
-                                            <td
-                                                scope="col"
-                                                className="px-6 py-3"
-                                            >
-                                                <Checkbox
-                                                    defaultChecked={i.canCreate}
-                                                />
-                                            </td>
+                            <>
+                                <h2>Permisos</h2>
+                                <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                    <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                        <tr>
                                             <th
                                                 scope="col"
                                                 className="px-6 py-3"
                                             >
-                                                <Checkbox
-                                                    defaultChecked={i.canCreate}
-                                                />
+                                                Modulo
                                             </th>
-                                            {props.auth.permissionsInRoute.some(
-                                                (i) => i.canDelete == 1
-                                            ) && (
-                                                <td className="px-6 py-4 text-right">
-                                                    <a
-                                                        href="#"
-                                                        className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                                                    >
-                                                        Borrar
-                                                    </a>
-                                                </td>
-                                            )}
+                                            <th
+                                                scope="col"
+                                                className="px-6 py-3"
+                                            >
+                                                Crear
+                                            </th>
+                                            <th
+                                                scope="col"
+                                                className="px-6 py-3"
+                                            >
+                                                Leer
+                                            </th>
+                                            <th
+                                                scope="col"
+                                                className="px-6 py-3"
+                                            >
+                                                Actualizar
+                                            </th>
+                                            <th
+                                                scope="col"
+                                                className="px-6 py-3"
+                                            >
+                                                Borrar
+                                            </th>
+                                            <th
+                                                scope="col"
+                                                className="px-6 py-3"
+                                            ></th>
                                         </tr>
-                                    ))}
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        {permissions.map((i) => (
+                                            <tr
+                                                key={i.id}
+                                                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+                                            >
+                                                <td
+                                                    scope="row"
+                                                    className="px-6 py-4 font-medium capitalize text-gray-900 wditespace-nowrap dark:text-white"
+                                                >
+                                                    {i.moduleName}
+                                                </td>
+                                                <td
+                                                    scope="col"
+                                                    className="px-6 py-3"
+                                                >
+                                                    <Checkbox
+                                                        defaultChecked={
+                                                            i.canCreate
+                                                        }
+                                                        disabled
+                                                    />
+                                                </td>
+                                                <td
+                                                    scope="col"
+                                                    className="px-6 py-3"
+                                                >
+                                                    <Checkbox
+                                                        defaultChecked={
+                                                            i.canRead
+                                                        }
+                                                        disabled
+                                                    />
+                                                </td>
+                                                <td
+                                                    scope="col"
+                                                    className="px-6 py-3"
+                                                >
+                                                    <Checkbox
+                                                        defaultChecked={
+                                                            i.canDelete
+                                                        }
+                                                        disabled
+                                                    />
+                                                </td>
+                                                <th
+                                                    scope="col"
+                                                    className="px-6 py-3"
+                                                >
+                                                    <Checkbox
+                                                        defaultChecked={
+                                                            i.canUpdate
+                                                        }
+                                                        disabled
+                                                    />
+                                                </th>
+                                                {props.auth.permissionsInRoute.some(
+                                                    (i) => i.canDelete == 1
+                                                ) && (
+                                                    <td className="px-6 py-4 text-right">
+                                                        <a
+                                                            href="#"
+                                                            className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                                                        >
+                                                            Borrar
+                                                        </a>
+                                                    </td>
+                                                )}
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </>
                         ) : (
                             <h3>No hay Permisos</h3>
                         )}

@@ -127,14 +127,14 @@ export default function Role(props) {
                                             aria-label="Page navigation example "
                                             className="flex justify-center py-2"
                                         >
-                                            <div className=" w-min border-[1px] border-orange-400 rounded-lg flex">
+                                            <div className=" w-min rounded-lg flex align-middle">
                                                 {props.roles.links.map((i) => (
                                                     <NavLink
                                                         key={i.label}
                                                         href={i.url}
                                                         active={i.active}
                                                         className={
-                                                            "flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-200  hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white " +
+                                                            "flex items-center bg-orange-400  justify-center px-3 h-8 leading-tight  text-white border border-gray-300 hover:bg-gray-200  hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white " +
                                                             (i.label.includes(
                                                                 "Previous"
                                                             )
@@ -143,7 +143,7 @@ export default function Role(props) {
                                                                       "Next"
                                                                   )
                                                                 ? " rounded-r-lg"
-                                                                : "")
+                                                                : " border-0")
                                                         }
                                                     >
                                                         {i.label.includes(
