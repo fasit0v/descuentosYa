@@ -7,23 +7,9 @@ import SecondaryButton from "@/Components/SecondaryButton";
 import PrimaryButton from "@/Components/PrimaryButton";
 import Checkbox from "@/Components/Checkbox";
 import { useForm } from "@inertiajs/react";
-import ErrorMessage from "@/Components/ErrorMessage";
+import PopUpMessage from "@/Components/PopUpMessage";
 
 function CreatePermissionForm({ id, roleName, modules }) {
-    const [confirmingPermissionCreation, setConfirmingPermissionCreation] =
-        useState(false);
-
-    const [errorSubmit, setErrorSubmit] = useState(null);
-    const [errorMessage, setErrorMessage] = useState(null);
-
-    const openMessageModal = () => {
-        setErrorMessage(true);
-    };
-
-    const closeMessageModal = () => {
-        setErrorMessage(false);
-    };
-
     const { data, setData, post, processing, reset, errors } = useForm({
         roleId: id,
         moduleId: null,
@@ -31,6 +17,14 @@ function CreatePermissionForm({ id, roleName, modules }) {
         canRead: 0,
         canUpdate: 0,
         canDelete: 0,
+    });
+
+    const [confirmingPermissionCreation, setConfirmingPermissionCreation] =
+        useState(false);
+
+    const [response, setResponse] = useState({
+        message: "",
+        error: false,
     });
 
     const confirmPermissionCreation = () => {
@@ -44,10 +38,18 @@ function CreatePermissionForm({ id, roleName, modules }) {
             preserveScroll: true,
 
             onError: () => {
-                setErrorSubmit(errors.error);
-                openMessageModal();
+                setResponse({
+                    message: "ocurrio un error al crear el permiso",
+                    error: true,
+                });
             },
-            onSuccess: () => closeModal(),
+            onSuccess: () => {
+                setResponse({
+                    message: "Se creo el permiso correctamente",
+                    error: false,
+                });
+                closeModal();
+            },
         });
     };
 
@@ -178,13 +180,7 @@ function CreatePermissionForm({ id, roleName, modules }) {
                 </form>
             </Modal>
 
-            {errorSubmit && (
-                <ErrorMessage
-                    message={errorSubmit}
-                    show={errorMessage}
-                    onClose={closeMessageModal}
-                />
-            )}
+            <PopUpMessage response={response} />
         </>
     );
 }
