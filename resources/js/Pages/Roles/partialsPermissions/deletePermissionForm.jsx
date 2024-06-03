@@ -21,7 +21,6 @@ function DeletePermissionForm({ id, moduleId, moduleName, roleId }) {
         errors,
     } = useForm({
         moduleName: "",
-        moduleId: moduleId,
         roleId: roleId,
         permissionId: id,
     });
@@ -79,7 +78,10 @@ function DeletePermissionForm({ id, moduleId, moduleName, roleId }) {
                             ref={passwordInput}
                             value={data.moduleName}
                             onChange={(e) =>
-                                setData("moduleName", e.target.value)
+                                setData({
+                                    ...data,
+                                    ["moduleName"]: e.target.value,
+                                })
                             }
                             className="mt-1 block w-3/4 p-2"
                             isFocused

@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import DangerButton from "@/Components/DangerButton";
 import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
@@ -7,9 +7,11 @@ import SecondaryButton from "@/Components/SecondaryButton";
 import PrimaryButton from "@/Components/PrimaryButton";
 import Checkbox from "@/Components/Checkbox";
 import { useForm } from "@inertiajs/react";
-import PopUpMessage from "@/Components/PopUpMessage";
+import context from "@/Context/context";
 
 function CreatePermissionForm({ id, roleName, modules }) {
+    const { openPopUp } = useContext(context);
+
     const { data, setData, post, processing, reset, errors } = useForm({
         roleId: id,
         moduleId: null,
@@ -22,11 +24,6 @@ function CreatePermissionForm({ id, roleName, modules }) {
     const [confirmingPermissionCreation, setConfirmingPermissionCreation] =
         useState(false);
 
-    const [response, setResponse] = useState({
-        message: "",
-        error: false,
-    });
-
     const confirmPermissionCreation = () => {
         setConfirmingPermissionCreation(true);
     };
@@ -38,16 +35,10 @@ function CreatePermissionForm({ id, roleName, modules }) {
             preserveScroll: true,
 
             onError: () => {
-                setResponse({
-                    message: "ocurrio un error al crear el permiso",
-                    error: true,
-                });
+                openPopUp("ocurrio un error al crear el permiso", true);
             },
             onSuccess: () => {
-                setResponse({
-                    message: "Se creo el permiso correctamente",
-                    error: false,
-                });
+                openPopUp("Se creo el permiso correctamente", false);
                 closeModal();
             },
         });
@@ -179,8 +170,6 @@ function CreatePermissionForm({ id, roleName, modules }) {
                     </div>
                 </form>
             </Modal>
-
-            <PopUpMessage response={response} />
         </>
     );
 }

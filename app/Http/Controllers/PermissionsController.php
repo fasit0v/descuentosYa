@@ -45,7 +45,7 @@ class PermissionsController extends Controller
             ]);
 
             // Responder con éxito usando Inertia
-            return redirect()->back()->with('success', 'Permission created successfully');
+            return redirect()->back()->with('success', 'El permiso se ha creado');
 
         } catch (ValidationException $e) {
             // Manejar las excepciones de validación específicamente
@@ -57,8 +57,22 @@ class PermissionsController extends Controller
     }
 
 
-    public function destroy(){
-        
+    public function destroy(Request $request){
+        $request->validate([
+                "roleId" => ["required"],
+                "permissionId"=>["required"],
+                "moduleName" =>["required"]
+            ]);
+
+        Permissions::
+        join("modules","modules.id", "=", "permissions.module_id")
+        ->where("permissions.role_id", "=", $request->roleId)
+        ->where("modules.moduleName", "=", $request->moduleName)
+        ->where("permissions.id", "=", $request->permissionId)
+        ->delete();
+
+        return redirect()->back()->with('success', 'El permiso se ha borrado');
+
     }
 }
 
