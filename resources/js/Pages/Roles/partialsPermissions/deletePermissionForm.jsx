@@ -1,13 +1,16 @@
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import DangerButton from "@/Components/DangerButton";
 import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
 import Modal from "@/Components/Modal";
 import SecondaryButton from "@/Components/SecondaryButton";
 import TextInput from "@/Components/TextInput";
-import { router, useForm } from "@inertiajs/react";
+import { useForm } from "@inertiajs/react";
+import context from "@/Context/context";
 
 function DeletePermissionForm({ id, moduleId, moduleName, roleId }) {
+    const { openPopUp } = useContext(context);
+
     const [confirmingPermissionDeletion, setConfirmingPermissionDeletion] =
         useState(false);
     const passwordInput = useRef();
@@ -34,11 +37,15 @@ function DeletePermissionForm({ id, moduleId, moduleName, roleId }) {
 
         destroy(`/permissions/${id}`, {
             preserveScroll: true,
-            preserveState: false,
+
             onSuccess: () => {
+                openPopUp("Se borro el permiso correctamente", false);
                 closeModal();
             },
-            onError: () => passwordInput.current.focus(),
+            onError: () => {
+                passwordInput.current.focus();
+                openPopUp("ocurrio un error al borrar el permiso", true);
+            },
             onFinish: () => reset(),
         });
     };

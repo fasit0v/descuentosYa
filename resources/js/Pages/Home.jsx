@@ -1,8 +1,10 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Link, Head } from "@inertiajs/react";
+import { Link, Head, router } from "@inertiajs/react";
 import GoogleMapReact from "google-map-react";
 
-const AnyReactComponent = ({ text }) => <div>{text}</div>;
+const AnyReactComponent = ({ text }) => (
+    <div onClick={() => router.get("/roles")}>{text}</div>
+);
 
 export default function Welcome(props) {
     console.log(props);
@@ -30,8 +32,8 @@ export default function Welcome(props) {
                             defaultZoom={defaultProps.zoom}
                         >
                             <AnyReactComponent
-                                lat={59.955413}
-                                lng={30.337844}
+                                lat={-26.185381014712792}
+                                lng={-58.17849591699535}
                                 text="My Marker"
                             />
                         </GoogleMapReact>

@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import DangerButton from "@/Components/DangerButton";
 import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
@@ -6,8 +6,11 @@ import Modal from "@/Components/Modal";
 import SecondaryButton from "@/Components/SecondaryButton";
 import TextInput from "@/Components/TextInput";
 import { router, useForm } from "@inertiajs/react";
+import context from "@/Context/context";
 
 function DeleteRoleForm({ id, roleName }) {
+    const { openPopUp } = useContext(context);
+
     const [confirmingRoleDeletion, setConfirmingRoleDeletion] = useState(false);
     const passwordInput = useRef();
 
@@ -32,12 +35,15 @@ function DeleteRoleForm({ id, roleName }) {
 
         destroy(`/roles/${id}`, {
             preserveScroll: true,
-            preserveState: false,
+
             onSuccess: () => {
+                openPopUp("Se borro el rol correctamente", false);
                 closeModal();
-                router.reload();
             },
-            onError: () => passwordInput.current.focus(),
+            onError: () => {
+                passwordInput.current.focus();
+                openPopUp("ocurrio un error al borrar el rol", true);
+            },
             onFinish: () => reset(),
         });
     };

@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import DangerButton from "@/Components/DangerButton";
 import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
@@ -7,10 +7,13 @@ import SecondaryButton from "@/Components/SecondaryButton";
 import TextInput from "@/Components/TextInput";
 import { router, useForm } from "@inertiajs/react";
 import PrimaryButton from "@/Components/PrimaryButton";
+import context from "@/Context/context";
 
 function CreateRoleForm() {
     const [confirmingRoleCreation, setConfirmingRoleCreation] = useState(false);
     const roleNameInput = useRef();
+
+    const { openPopUp } = useContext(context);
 
     const { data, setData, post, processing, reset, errors } = useForm({
         roleName: "",
@@ -25,8 +28,15 @@ function CreateRoleForm() {
 
         post("/roles", {
             preserveScroll: true,
-            preserveState: false,
-            onError: () => roleNameInput.current.focus(),
+
+            onError: () => {
+                roleNameInput.current.focus();
+                openPopUp("ocurrio un error al crear el rol", true);
+            },
+            onSuccess: () => {
+                openPopUp("Se creo el rol correctamente", false);
+                closeModal();
+            },
             onFinish: () => reset(),
         });
     };
@@ -39,7 +49,9 @@ function CreateRoleForm() {
 
     return (
         <>
-            <PrimaryButton onClick={confirmUserCreation}>+</PrimaryButton>
+            <PrimaryButton onClick={confirmUserCreation}>
+                Crear Rol
+            </PrimaryButton>
 
             <Modal show={confirmingRoleCreation} onClose={closeModal}>
                 <form onSubmit={confirmRole} className="p-6">
