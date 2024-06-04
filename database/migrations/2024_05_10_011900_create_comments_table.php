@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger("user_id");
             $table->unsignedBigInteger("discount_id");
             $table->string("commentDescription");
-            $table->string("commentImage")->nullable();
+            $table->binary("commentImage")->nullable();
             $table->timestamp("commentCreateAt");
 
             $table->foreign("user_id")->references("id")->on("users")->onDelete("cascade");
