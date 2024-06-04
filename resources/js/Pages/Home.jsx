@@ -7,14 +7,14 @@ const AnyReactComponent = ({ text }) => (
 );
 
 export default function Welcome(props) {
-    console.log(props);
+    const { data } = props;
 
     const defaultProps = {
         center: {
             lat: -26.185381014712792,
             lng: -58.17849591699535,
         },
-        zoom: 13,
+        zoom: 12,
     };
 
     return (
@@ -31,11 +31,13 @@ export default function Welcome(props) {
                             defaultCenter={defaultProps.center}
                             defaultZoom={defaultProps.zoom}
                         >
-                            <AnyReactComponent
-                                lat={-26.185381014712792}
-                                lng={-58.17849591699535}
-                                text="My Marker"
-                            />
+                            {data.places.map((i) => (
+                                <AnyReactComponent
+                                    lat={i.placeLatitude}
+                                    lng={i.placeLongitude}
+                                    text={i.placeName}
+                                />
+                            ))}
                         </GoogleMapReact>
                     </div>
                 </div>

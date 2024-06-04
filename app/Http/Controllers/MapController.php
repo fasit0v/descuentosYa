@@ -17,7 +17,7 @@ class MapController extends Controller
             "places.placeAddress", 
             "places.placeLongitude", 
             "places.placeLatitude", 
-            "places.placeCategory",
+            
             DB::raw('count(discounts.id) as discountQuantity')
         )
         ->leftJoin("discounts", "discounts.place_id", "=", "places.id")
@@ -26,7 +26,7 @@ class MapController extends Controller
             "places.placeAddress", 
             "places.placeLongitude", 
             "places.placeLatitude", 
-            "places.placeCategory",)
+            )
         ->get();
 
 
