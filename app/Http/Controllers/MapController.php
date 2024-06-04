@@ -14,9 +14,7 @@ class MapController extends Controller
         $places = Place::select(
             "places.id",
             "places.placeName",
-            "places.placeDescription",
             "places.placeAddress", 
-            "places.placeImage",
             "places.placeLongitude", 
             "places.placeLatitude", 
             "places.placeCategory",
@@ -25,9 +23,7 @@ class MapController extends Controller
         ->leftJoin("discounts", "discounts.place_id", "=", "places.id")
         ->groupBy("places.id", 
             "places.placeName",
-            "places.placeDescription",
             "places.placeAddress", 
-            "places.placeImage",
             "places.placeLongitude", 
             "places.placeLatitude", 
             "places.placeCategory",)
