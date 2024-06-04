@@ -17,7 +17,8 @@ return new class extends Migration
             $table->id();
             $table->timestamp("discountCreateAt");
             $table->string("discountName");
-            $table->string("discountDescription");
+            $table->string("discountDescription")->nullable();
+            $table->binary("discountImage")->nullable();
             $table->dateTime("discountEndsAt");
             $table->unsignedBigInteger("user_id");
             $table->unsignedBigInteger("place_id");

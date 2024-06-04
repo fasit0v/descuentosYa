@@ -20,6 +20,8 @@
         "vite": "^4.0.0"
     },
     "dependencies": {
-        "google-map-react": "^2.2.1"
+        "google-map-react": "^2.2.1",
+        "react-slick": "^0.30.2",
+        "slick-carousel": "^1.8.1"
     }
 }

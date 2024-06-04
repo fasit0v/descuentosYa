@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger("user_id");
             $table->unsignedBigInteger("discount_id");
             $table->string("reportDescription");
-            $table->string("reportImage")->nullable();
+            $table->binary("reportImage")->nullable();
             $table->timestamp("reportCreateAt");
             $table->enum("reportState",["pendiente","analizada"]);
             $table->enum("reportCause",["fraude", "ofensivo", "incorrecto"]);
