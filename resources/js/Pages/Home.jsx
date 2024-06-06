@@ -1,3 +1,4 @@
+import FilterBar from "@/Components/filterMap";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Link, Head, router } from "@inertiajs/react";
 import GoogleMapReact from "google-map-react";
@@ -20,12 +21,13 @@ export default function Welcome(props) {
     return (
         <AuthenticatedLayout auth={props.auth} errors={props.errors}>
             <Head title="Home" />
-            <div className="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white">
-                <div className="max-w-7xl mx-auto p-6 lg:p-8">
-                    <div
-                        className="mt-10 mx-auto"
-                        style={{ height: "80vh", width: "80vw" }}
-                    >
+            <div className="relative   bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white">
+                <div
+                    className=" mx-auto w-full "
+                    style={{ height: "calc(100vh - 4rem)" }}
+                >
+                    <FilterBar placeCategories={data.placeCategories} />
+                    <div className="w-full mx-auto h-full">
                         <GoogleMapReact
                             bootstrapURLKeys={{ key: "" }}
                             defaultCenter={defaultProps.center}
@@ -33,6 +35,7 @@ export default function Welcome(props) {
                         >
                             {data.places.map((i) => (
                                 <AnyReactComponent
+                                    key={i.id}
                                     lat={i.placeLatitude}
                                     lng={i.placeLongitude}
                                     text={i.placeName}
