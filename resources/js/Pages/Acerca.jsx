@@ -21,23 +21,23 @@ export default function Dashboard(props) {
                     <Slider {...settings}>
                         <div>
                             <img
-                                src="https://via.placeholder.com/800x400"
+                                src="/image/MapsImage.png"
                                 alt="Imagen 1"
-                                className="w-full h-64 object-cover"
+                                className="w-full h-64 object-fill"
                             />
                         </div>
                         <div>
                             <img
-                                src="https://via.placeholder.com/800x400"
+                                src="/image/Formosaimage.jpg.webp"
                                 alt="Imagen 2"
-                                className="w-full h-64 object-cover"
+                                className="w-full h-64 object-fill"
                             />
                         </div>
                         <div>
                             <img
-                                src="https://via.placeholder.com/800x400"
+                                src="/image/Promociones-supermercado.jpg"
                                 alt="Imagen 3"
-                                className="w-full h-64 object-cover"
+                                className="w-full h-64 object-fill"
                             />
                         </div>
                     </Slider>
@@ -55,7 +55,7 @@ export default function Dashboard(props) {
                     </p>
 
                     <div className="mb-8">
-                        <h2 className="text-2xl font-semibold text-gray-800 mb-4">
+                        <h2 className="text-2xl font-semibold text-orange-600 mb-4">
                             Nuestra Misión
                         </h2>
                         <p className="text-lg mb-4">
@@ -70,10 +70,10 @@ export default function Dashboard(props) {
                     </div>
 
                     <div className="mb-8">
-                        <h2 className="text-2xl font-semibold text-gray-800 mb-4">
+                        <h2 className="text-2xl font-semibold text-orange-600 mb-4 text-right">
                             Nuestra Visión
                         </h2>
-                        <p className="text-lg mb-4">
+                        <p className="text-lg mb-4 text-right">
                             Aspiramos a convertirnos en la aplicación de
                             referencia para el ahorro en Formosa Capital, y más
                             allá. Nuestra visión es crecer y expandir nuestra
@@ -87,7 +87,7 @@ export default function Dashboard(props) {
                     </div>
 
                     <div className="mb-8">
-                        <h2 className="text-2xl font-semibold text-gray-800 mb-4">
+                        <h2 className="text-2xl font-semibold text-orange-600 mb-4">
                             Únete a Nosotros
                         </h2>
                         <p className="text-lg mb-4">
