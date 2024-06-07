@@ -278,13 +278,72 @@ export default function Authenticated({ auth, header, children }) {
                 </nav>
                 {header && (
                     <header className="bg-white shadow">
-                        <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                            {header}
-                        </div>
+                        <div className="max-w-7xl mx-auto ">{header}</div>
                     </header>
                 )}
                 <main>{children}</main>
             </div>
+            <footer className="bg-orange-400 text-white py-4">
+                <div className="container mx-auto px-4">
+                    <div className="flex justify-between items-center">
+                        <div className="text-sm">
+                            © 2024 DescuentoYa. Todos los derechos reservados.
+                        </div>
+                        <div className="space-x-4">
+                            <a
+                                href="#"
+                                className="text-white hover:text-orange-200"
+                            >
+                                Inicio
+                            </a>
+                            <a
+                                href="#"
+                                className="text-white hover:text-orange-200"
+                            >
+                                Acerca de
+                            </a>
+                            <a
+                                href="#"
+                                className="text-white hover:text-orange-200"
+                            >
+                                Contacto
+                            </a>
+                            <a
+                                href="#"
+                                className="text-white hover:text-orange-200"
+                            >
+                                Política de Privacidad
+                            </a>
+                            <a
+                                href="#"
+                                className="text-white hover:text-orange-200"
+                            >
+                                Términos de Servicio
+                            </a>
+                        </div>
+                        <div className="space-x-4">
+                            <a
+                                href="#"
+                                className="text-white hover:text-orange-200"
+                            >
+                                <i className="fab fa-facebook-f"></i>
+                            </a>
+                            <a
+                                href="#"
+                                className="text-white hover:text-orange-200"
+                            >
+                                <i className="fab fa-twitter"></i>
+                            </a>
+                            <a
+                                href="#"
+                                className="text-white hover:text-orange-200"
+                            >
+                                <i className="fab fa-instagram"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
         </PopUpMessageContextProvider>
     );
 }

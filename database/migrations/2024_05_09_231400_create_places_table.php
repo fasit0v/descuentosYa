@@ -21,7 +21,9 @@ return new class extends Migration
             $table->binary("placeImage")->nullable();
             $table->string("placeLongitude", 20); // Cambio a cadena de texto
             $table->string("placeLatitude", 20);  // Cambio a cadena de texto
-            $table->string("placeCategory", 20);
+            $table->unsignedBigInteger("placeCategory_id");
+
+            $table->foreign("placeCategory_id")->references("id")->on("place_categories")->onDelete("cascade");
         });
 
     }

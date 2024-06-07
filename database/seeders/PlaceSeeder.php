@@ -16,8 +16,8 @@ class PlaceSeeder extends Seeder
     public function run()
     {
         DB::table("places")->insert([
-            ["placeName"=>"farmacity", "placeAddress"=>"Moreno 806, P3600 OCZ, Formosa", "placeCategory"=> "farmacia", "placeLatitude"=> "-26.18323613493807", "placeLongitude"=>"-58.16716395524154"],
-            ["placeName"=>"Carrefour", "placeAddress"=>"Av. Dr. Luis Gutniski 2040, P3600 Formosa", "placeCategory"=> "hipermercado", "placeLatitude"=> "-26.19014154341129", "placeLongitude"=>"-58.187465147096255"]
+            ["placeName"=>"farmacity", "placeAddress"=>"Moreno 806, P3600 OCZ, Formosa", "placeCategory_id"=> 1, "placeLatitude"=> "-26.18323613493807", "placeLongitude"=>"-58.16716395524154"],
+            ["placeName"=>"Carrefour", "placeAddress"=>"Av. Dr. Luis Gutniski 2040, P3600 Formosa", "placeCategory_id"=> 2, "placeLatitude"=> "-26.19014154341129", "placeLongitude"=>"-58.187465147096255"]
         ]);
     }
 }
