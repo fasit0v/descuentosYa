@@ -34,7 +34,7 @@ const FilterBar = ({ placeCategories }) => {
     };
 
     return (
-        <div className="bg-white shadow p-2 flex justify-between items-center">
+        <div className="bg-white shadow p-2 flex justify-between items-center h-20">
             <div className="flex space-x-8">
                 <div>
                     <label

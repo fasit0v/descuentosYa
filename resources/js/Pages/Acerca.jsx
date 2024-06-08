@@ -15,7 +15,7 @@ export default function Dashboard(props) {
             <Head title="Acerca" />
             <div className="bg-white p-8">
                 <h1 className="text-4xl font-bold text-center text-orange-600 mb-8">
-                    Acerca de Nosotros
+                    DescuentosYa
                 </h1>
                 <div className="mb-8">
                     <Slider {...settings}>
@@ -105,7 +105,6 @@ export default function Dashboard(props) {
                     </div>
                 </div>
             </div>
-            );
         </AuthenticatedLayout>
     );
 }
