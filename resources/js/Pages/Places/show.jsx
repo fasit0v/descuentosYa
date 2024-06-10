@@ -2,6 +2,7 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link } from "@inertiajs/react";
 import { useState, useEffect } from "react";
 import DiscountPaginate from "./partial/DiscountPaginate";
+import { TextToSpeech } from "tts-react";
 
 export default function Show(props) {
     const { place, discountData } = props.data;
@@ -48,23 +49,35 @@ export default function Show(props) {
                                 </svg>
                             </Link>
                         </div>
-
-                        <div className="text-orange-500  text-center my-2 text-3xl font-bold capitalize">
-                            <h2>{place.placeName}</h2>
-                        </div>
-                        <div className="text-center text-gray-700 my-2">
-                            <p>{place.placeCategoryName}</p>
-                            <p>{place.placeAddress}</p>
-                        </div>
-                        <div className="overflow-hidden flex justify-center lg:px-40">
-                            {imageUrl && (
-                                <img
-                                    src={imageUrl}
-                                    alt={place.placeName}
-                                    className=" h-80 w-full object-fill rounded-lg aspect-video"
-                                />
-                            )}
-                        </div>
+                        <TextToSpeech
+                            align="horizontal"
+                            allowMuting
+                            markBackgroundColor="#55AD66"
+                            markColor="white"
+                            markTextAsSpoken
+                            autoPlay={true}
+                            position="topCenter"
+                            rate={1}
+                            size="small"
+                            volume={1}
+                        >
+                            <div className="text-orange-500  text-center my-2 text-3xl font-bold capitalize">
+                                <h2>{place.placeName}</h2>
+                            </div>
+                            <div className="text-center text-gray-700 my-2">
+                                <p>{place.placeCategoryName}</p>
+                                <p>{place.placeAddress}</p>
+                            </div>
+                            <div className="overflow-hidden flex justify-center lg:px-40">
+                                {imageUrl && (
+                                    <img
+                                        src={imageUrl}
+                                        alt={place.placeName}
+                                        className=" h-80 w-full object-fill rounded-lg aspect-video"
+                                    />
+                                )}
+                            </div>
+                        </TextToSpeech>
                         <div className="text-orange-500 text-left mt-4 text-xl">
                             <h4>Descuentos</h4>
                         </div>

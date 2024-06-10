@@ -23,6 +23,7 @@
         "google-map-react": "^2.2.1",
         "react-slick": "^0.30.2",
         "react-timeago": "^7.2.0",
-        "slick-carousel": "^1.8.1"
+        "slick-carousel": "^1.8.1",
+        "tts-react": "^3.0.7"
     }
 }

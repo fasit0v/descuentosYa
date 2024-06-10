@@ -35,7 +35,7 @@ const FilterBar = ({ placeCategories }) => {
 
     return (
         <div className="bg-white shadow p-2 flex justify-between items-center h-20">
-            <div className="flex space-x-8">
+            <div className="flex space-x-4">
                 <div>
                     <label
                         htmlFor="rubro"
@@ -47,9 +47,9 @@ const FilterBar = ({ placeCategories }) => {
                         id="rubro"
                         value={data.rubro}
                         onChange={(e) => setData("rubro", e.target.value)}
-                        className="mt-1 block w-full p-1 border border-gray-300 rounded-md"
+                        className="mt-1 block w-40 p-1 border border-gray-300 rounded-md"
                     >
-                        <option value=""></option>
+                        <option value="">Seleccione</option>
                         {placeCategories.map((i) => (
                             <option key={i.id} value={i.id}>
                                 {i.placeCategoryName}
@@ -68,9 +68,9 @@ const FilterBar = ({ placeCategories }) => {
                         id="descuento"
                         value={data.descuento}
                         onChange={(e) => setData("descuento", e.target.value)}
-                        className="mt-1 block w-full p-1 border border-gray-300 rounded-md"
+                        className="mt-1 block w-40 p-1 border border-gray-300 rounded-md"
                     >
-                        <option value=""></option>
+                        <option value="">Seleccione</option>
                         <option value="1">Sí</option>
                         <option value="0">No</option>
                     </select>
