@@ -6,20 +6,34 @@ use App\Models\Place;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
+
 class PlaceController extends Controller
 {
-    public function show(Request $request)
+    public function show($place)
     {
         // Validate the request
-        $request->validate([
-            'place' => 'required',
-        ]);
+        
 
         // Retrieve the place with discounts
-        $place = Place::with('discounts')->findOrFail($request->place);
+        $place = Place::join("place_categories", "places.placeCategory_id","=","place_categories.id" )->findOrFail($place);
+
+        $place->placeImage = $place->placeImage ? base64_encode($place->placeImage) : null;
         
         // Get the discounts related to the place
-        $discountData = $place->discounts()->paginate(10);
+        $discountData = $place->discounts()->select([
+            "users.id",
+            "users.name",
+            "users.image",
+            "discountCreatedAt",
+            "discountDescription",
+            "discountEndsAt",
+            "discountImage",
+            "discountName",
+            "discountUpdatedAt",
+            "discounts.id"
+
+        ])->join("users", "discounts.user_id", "=", "users.id")->paginate(10);
+        
 
         return Inertia::render("Places/show", [
             'data' => [
@@ -28,4 +42,9 @@ class PlaceController extends Controller
             ],
         ]);
     }
+
 }
+  
+
+
+

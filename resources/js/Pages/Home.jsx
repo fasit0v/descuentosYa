@@ -5,9 +5,7 @@ import GoogleMapReact from "google-map-react";
 
 const AnyReactComponent = ({ text, id }) => (
     <div>
-        <Link href={`places/${id}`} data={{ place: id }}>
-            {text}
-        </Link>
+        <Link href={`/places/${id}`}>{text}</Link>
     </div>
 );
 

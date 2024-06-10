@@ -65,10 +65,26 @@ export default function Authenticated({ auth, header, children }) {
                                                             type="button"
                                                             className="inline-flex capitalize items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
                                                         >
-                                                            <img
-                                                                src="/image/user.png"
-                                                                className="h-8 w-8"
-                                                            />
+                                                            {auth.user.image ? (
+                                                                <img
+                                                                    src={
+                                                                        auth
+                                                                            .user
+                                                                            .image
+                                                                    }
+                                                                    alt={
+                                                                        auth
+                                                                            .user
+                                                                            .name
+                                                                    }
+                                                                    className="w-10 h-10 rounded-full  object-contain border border-orange-400"
+                                                                />
+                                                            ) : (
+                                                                <img
+                                                                    src="/image/user.png"
+                                                                    className="w-10 h-10 rounded-full  object-contain"
+                                                                />
+                                                            )}
                                                             <svg
                                                                 className="ml-2 -mr-0.5 h-4 w-4"
                                                                 xmlns="http://www.w3.org/2000/svg"

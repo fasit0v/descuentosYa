@@ -18,7 +18,7 @@ return new class extends Migration
             $table->id();
             $table->string("discountName");
             $table->string("discountDescription")->nullable();
-            $table->binary("discountImage")->nullable();
+            $table->string("discountImage")->nullable();
             $table->timestamp("discountCreatedAt")->useCurrent();
             $table->timestamp("discountUpdatedAt")->useCurrentOnUpdate()->nullable();
             $table->timestamp("discountEndsAt")->nullable();

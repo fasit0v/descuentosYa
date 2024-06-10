@@ -15,7 +15,7 @@ export default function Role(props) {
             auth={props.auth}
             errors={props.errors}
             header={
-                <h2 className="font-semibold text-xl text-gray-800 leading-tight">
+                <h2 className="font-semibold text-xl text-gray-800 leading-tight p-2">
                     Gestion de Roles
                 </h2>
             }
@@ -146,55 +146,7 @@ export default function Role(props) {
                                                                 : " border-0")
                                                         }
                                                     >
-                                                        {i.label.includes(
-                                                            "Previous"
-                                                        ) ? (
-                                                            <>
-                                                                <span className="sr-only">
-                                                                    Previous
-                                                                </span>
-                                                                <svg
-                                                                    className="w-2.5 h-2.5 rtl:rotate-180"
-                                                                    aria-hidden="true"
-                                                                    xmlns="http://www.w3.org/2000/svg"
-                                                                    fill="none"
-                                                                    viewBox="0 0 6 10"
-                                                                >
-                                                                    <path
-                                                                        stroke="currentColor"
-                                                                        strokeLinecap="round"
-                                                                        strokeLinejoin="round"
-                                                                        strokeWidth="2"
-                                                                        d="M5 1 1 5l4 4"
-                                                                    />
-                                                                </svg>
-                                                            </>
-                                                        ) : i.label.includes(
-                                                              "Next"
-                                                          ) ? (
-                                                            <div className="">
-                                                                <span className="sr-only">
-                                                                    Next
-                                                                </span>
-                                                                <svg
-                                                                    className="w-2.5 h-2.5 rtl:rotate-180"
-                                                                    aria-hidden="true"
-                                                                    xmlns="http://www.w3.org/2000/svg"
-                                                                    fill="none"
-                                                                    viewBox="0 0 6 10"
-                                                                >
-                                                                    <path
-                                                                        stroke="currentColor"
-                                                                        strokeLinecap="round"
-                                                                        strokeLinejoin="round"
-                                                                        strokeWidth="2"
-                                                                        d="m1 9 4-4-4-4"
-                                                                    />
-                                                                </svg>
-                                                            </div>
-                                                        ) : (
-                                                            i.label
-                                                        )}
+                                                        {i.label}
                                                     </NavLink>
                                                 ))}
                                             </div>

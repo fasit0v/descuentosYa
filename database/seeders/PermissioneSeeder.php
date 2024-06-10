@@ -22,6 +22,14 @@ class PermissioneSeeder extends Seeder
             "canDelete"=>1,
             "canRead"=>1,
             "canUpdate"=>1
-        ]]);
+        ],[
+            "module_id"=>2,
+            "role_id"=>2,
+            "canCreate"=>1,
+            "canDelete"=>1,
+            "canRead"=>1,
+            "canUpdate"=>1
+        ]
+    ]);
     }
 }

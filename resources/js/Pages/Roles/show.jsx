@@ -16,7 +16,7 @@ export default function Show(props) {
             auth={props.auth}
             errors={props.errors}
             header={
-                <h2 className="capitalize font-semibold text-xl text-gray-800 leading-tight">
+                <h2 className="capitalize font-semibold text-xl text-gray-800 leading-tight p-2">
                     Rol "{role.roleName}"
                 </h2>
             }

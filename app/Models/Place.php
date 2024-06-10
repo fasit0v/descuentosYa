@@ -15,8 +15,7 @@ class Place extends Model
         "placeName",
         "placeDescription",
         "placeAddress",
-        "placeImage",
-        "placeCategory_id"
+        
     ];
 
     public $timestamp = false;

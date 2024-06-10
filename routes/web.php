@@ -25,11 +25,8 @@ use Inertia\Inertia;
 
 
 
-
-
-
 /* Home */
-Route::resource('/', MapController::class)->only(["index"]);
+Route::get('/', [MapController::class,"index"])->name("home");
 
 /* Acerca */
 Route::get('/acerca', function () {
@@ -39,12 +36,13 @@ Route::get('/acerca', function () {
 
 
 /* Places */
-Route::resource("places", PlaceController::class)->only(["show"]);
+Route::get("/places/{place}", [PlaceController::class,"show"]);
 
 /* Discount */
 Route::resource("discounts", DiscountController::class)->only(["store"]);
 
-/* Route::resource("reportes", ReportController::class)->only(["index", "store", "update", "destroy"])->middleware(["auth"]); */
+/* Reportes TODO */
+Route::resource("reportes", ReportController::class)->only(["index", "store", "update", "destroy"])->middleware(["auth"]);
 
 /* Roles */
 Route::resource("roles", RoleController::class)->only(["index","show" ,"store", "update", "destroy"])->middleware(["auth"]);
