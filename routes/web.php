@@ -39,7 +39,7 @@ Route::get('/acerca', function () {
 Route::get("/places/{place}", [PlaceController::class,"show"]);
 
 /* Discount */
-Route::resource("discounts", DiscountController::class)->only(["store"]);
+Route::resource("discounts", DiscountController::class)->only(["store","destroy","update" ])->middleware(["auth"]);
 
 /* Reportes TODO */
 Route::resource("reportes", ReportController::class)->only(["index", "store", "update", "destroy"])->middleware(["auth"]);

@@ -3,12 +3,12 @@ import FilterBar from "@/Components/filterMap";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link } from "@inertiajs/react";
 import GoogleMapReact from "google-map-react";
+import DangerButton from "@/Components/DangerButton";
+import PrimaryButton from "@/Components/PrimaryButton";
 
 export default function Welcome(props) {
     const { data } = props;
     const [selectedPlace, setSelectedPlace] = useState(null);
-
-    console.log(selectedPlace);
 
     const handleMarkerClick = (place) => {
         setSelectedPlace(place);
@@ -71,7 +71,7 @@ export default function Welcome(props) {
 
 function MarkerPlace({ placeQuantityDiscount, onClick }) {
     return (
-        <div onClick={onClick} className=" cursor-pointer">
+        <button onClick={onClick} className=" cursor-pointer">
             {placeQuantityDiscount > 0 ? (
                 <img
                     src="/image/markerConDescuento.png"
@@ -91,7 +91,7 @@ function MarkerPlace({ placeQuantityDiscount, onClick }) {
                     }}
                 />
             )}
-        </div>
+        </button>
     );
 }
 
@@ -100,30 +100,32 @@ function Popup({ place, onClose }) {
         ? `data:image/jpeg;base64,${place.placeImage}`
         : null;
     return (
-        <div className=" absolute left-0 top-20 ">
-            <div className=" bg-white p-4  capitalize">
+        <aside
+            className=" absolute top-20 w-64 "
+            style={{ Height: "calc(100vh-9rem)" }}
+        >
+            <div className=" border border-orange-200 bg-white p-4 rounded-b-md  capitalize flex justify-center flex-col">
+                <img
+                    src={imageUrl}
+                    className=" h-40 aspect-square rounded-lg"
+                />
                 <h3 className="text-xl text-orange-400 pb-[1.2rem] font-bold">
                     {place.placeName}
                 </h3>
-                <img
-                    src={imageUrl}
-                    className=" h-72 aspect-square rounded-lg"
-                />
                 <p>{place.placeAddress}</p>
-                <p>Categoría: {place.placeCategoryName}</p>
-                <p>Descuentos disponibles: {place.discountQuantity}</p>
+
                 <div className=" flex justify-between">
                     <Link
                         href={`/places/${place.id}`}
-                        className="text-orange-500 underline"
+                        className="bg-orange-400 p-2 rounded text-white hover:bg-orange-500 focus:bg-orange-500"
                     >
-                        Ver Descuentos
+                        Ver
                     </Link>
-                    <button onClick={onClose} className="">
+                    <DangerButton onClick={onClose} className=" p-2">
                         Cerrar
-                    </button>
+                    </DangerButton>
                 </div>
             </div>
-        </div>
+        </aside>
     );
 }

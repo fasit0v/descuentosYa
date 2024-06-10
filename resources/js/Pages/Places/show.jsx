@@ -3,11 +3,12 @@ import { Head, Link } from "@inertiajs/react";
 import { useState, useEffect } from "react";
 import DiscountPaginate from "./partial/DiscountPaginate";
 import { TextToSpeech } from "tts-react";
+import CreateFormDiscount from "./partialDiscount/createFormDiscount";
 
 export default function Show(props) {
     const { place, discountData } = props.data;
 
-    console.log(discountData);
+    console.log(props);
 
     const imageUrl = place.placeImage
         ? `data:image/jpeg;base64,${place.placeImage}`
@@ -21,11 +22,10 @@ export default function Show(props) {
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg p-4">
                         <div className="flex justify-between align-middle pt-4">
-                            <Link href="/">
+                            <Link href="/" className=" ">
                                 <svg
-                                    className="w-10 h-10 "
+                                    className=" border rounded border-orange-400 hover:bg-orange-400 absolute w-10 h-10 "
                                     viewBox="0 0 24 24"
-                                    fill="none"
                                     xmlns="http://www.w3.org/2000/svg"
                                 >
                                     <g
@@ -55,7 +55,7 @@ export default function Show(props) {
                             markBackgroundColor="#55AD66"
                             markColor="white"
                             markTextAsSpoken
-                            autoPlay={true}
+                            autoPlay={false}
                             position="topCenter"
                             rate={1}
                             size="small"
@@ -78,8 +78,15 @@ export default function Show(props) {
                                 )}
                             </div>
                         </TextToSpeech>
-                        <div className="text-orange-500 text-left mt-4 text-xl">
-                            <h4>Descuentos</h4>
+                        <div className="text-orange-500 text-left my-10  flex justify-between align-middle">
+                            <h4 className="text-2xl">Descuentos</h4>
+                            {props.auth.user && (
+                                <CreateFormDiscount
+                                    place_id={place.id}
+                                    placeName={place.placeName}
+                                    user_id={props.auth.user.id}
+                                />
+                            )}
                         </div>
                         <DiscountPaginate
                             discounts={discountData.data}

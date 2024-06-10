@@ -5,7 +5,7 @@ import Slider from "react-slick";
 import { TextToSpeech } from "tts-react";
 
 export default function Dashboard(props) {
-    const [speech, setSpeech] = useState(1);
+    const [speech, setSpeech] = useState(null);
 
     const handleChangeSpeech = (num) => {
         setSpeech(num);

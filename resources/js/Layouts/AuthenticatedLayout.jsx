@@ -28,10 +28,13 @@ export default function Authenticated({ auth, header, children }) {
                                         <NavLink
                                             href="/"
                                             replace
-                                            active={url === "/"}
+                                            active={
+                                                url === "/" ||
+                                                url.startsWith("/places")
+                                            }
                                             className="capitalize"
                                         >
-                                            Home
+                                            Mapa
                                         </NavLink>
                                         <NavLink
                                             href="/acerca"
@@ -63,7 +66,7 @@ export default function Authenticated({ auth, header, children }) {
                                                     <span className="inline-flex rounded-md">
                                                         <button
                                                             type="button"
-                                                            className="inline-flex capitalize items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
+                                                            className="inline-flex   capitalize items-center px-3 py-2  text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
                                                         >
                                                             {auth.user.image ? (
                                                                 <img
@@ -77,12 +80,12 @@ export default function Authenticated({ auth, header, children }) {
                                                                             .user
                                                                             .name
                                                                     }
-                                                                    className="w-10 h-10 rounded-full  object-contain border border-orange-400"
+                                                                    className="w-10 h-10 rounded-full  object-contain border hover:border-2  border-orange-400"
                                                                 />
                                                             ) : (
                                                                 <img
                                                                     src="/image/user.png"
-                                                                    className="w-10 h-10 rounded-full  object-contain"
+                                                                    className="w-10 h-10 rounded-full  object-contain  border hover:border-2  border-orange-400"
                                                                 />
                                                             )}
                                                             <svg
@@ -135,7 +138,7 @@ export default function Authenticated({ auth, header, children }) {
                                             active={url === "/"}
                                             className="capitalize"
                                         >
-                                            Home
+                                            Mapa
                                         </NavLink>
                                         <NavLink
                                             href="/acerca"
@@ -211,10 +214,13 @@ export default function Authenticated({ auth, header, children }) {
                                             <ResponsiveNavLink
                                                 href="/"
                                                 replace
-                                                active={url === "/"}
+                                                active={
+                                                    url === "/" ||
+                                                    url.startsWith("/places")
+                                                }
                                                 className="capitalize"
                                             >
-                                                Home
+                                                Mapa
                                             </ResponsiveNavLink>
                                             <ResponsiveNavLink
                                                 href="/acerca"
@@ -269,7 +275,7 @@ export default function Authenticated({ auth, header, children }) {
                                                 active={url === "/"}
                                                 className="capitalize"
                                             >
-                                                Home
+                                                Mapa
                                             </ResponsiveNavLink>
                                             <ResponsiveNavLink
                                                 href="/acerca"
