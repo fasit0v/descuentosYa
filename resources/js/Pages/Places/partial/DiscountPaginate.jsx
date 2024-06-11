@@ -21,7 +21,7 @@ const DiscountPaginate = ({ discounts, currentPage, lastPage, links }) => {
         <div>
             <div>
                 {discounts.map((discount) => (
-                    <Discount key={discount.id} discount={discount} />
+                    <Discount key={discount.discount_id} discount={discount} />
                 ))}
             </div>
             <div className="flex justify-center my-4">

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DiscountController;
+use App\Http\Controllers\LikeController;
 use App\Http\Controllers\MapController;
 use App\Http\Controllers\PermissionsController;
 use App\Http\Controllers\PlaceController;
@@ -40,6 +41,9 @@ Route::get("/places/{place}", [PlaceController::class,"show"]);
 
 /* Discount */
 Route::resource("discounts", DiscountController::class)->only(["store","destroy","update" ])->middleware(["auth"]);
+
+/* Likes */
+Route::post("/likes",[LikeController::class,"like"])->middleware(["auth"]);
 
 /* Reportes TODO */
 Route::resource("reportes", ReportController::class)->only(["index", "store", "update", "destroy"])->middleware(["auth"]);
