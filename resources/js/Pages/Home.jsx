@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import FilterBar from "@/Components/filterMap";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, Link } from "@inertiajs/react";
+import { Head, Link, router } from "@inertiajs/react";
 import GoogleMapReact from "google-map-react";
 import DangerButton from "@/Components/DangerButton";
 import PrimaryButton from "@/Components/PrimaryButton";
@@ -40,8 +40,6 @@ export default function Welcome(props) {
                             bootstrapURLKeys={{ key: "" }}
                             defaultCenter={defaultProps.center}
                             defaultZoom={defaultProps.zoom}
-                            minZoom={12}
-                            maxZoom={20}
                         >
                             {data.places.map((place) => (
                                 <MarkerPlace
@@ -53,6 +51,10 @@ export default function Welcome(props) {
                                         place.discountQuantity
                                     }
                                     onClick={() => handleMarkerClick(place)}
+                                    onDoubleClick={() => {
+                                        handleMarkerClick(place);
+                                        router.get(`/places/${place.id}`);
+                                    }}
                                 />
                             ))}
                         </GoogleMapReact>
@@ -69,9 +71,13 @@ export default function Welcome(props) {
     );
 }
 
-function MarkerPlace({ placeQuantityDiscount, onClick }) {
+function MarkerPlace({ placeQuantityDiscount, onClick, onDoubleClick }) {
     return (
-        <button onClick={onClick} className=" cursor-pointer">
+        <button
+            onClick={onClick}
+            onDoubleClick={onDoubleClick}
+            className=" cursor-pointer"
+        >
             {placeQuantityDiscount > 0 ? (
                 <img
                     src="/image/markerConDescuento.png"

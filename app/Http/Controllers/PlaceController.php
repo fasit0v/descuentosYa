@@ -20,20 +20,25 @@ class PlaceController extends Controller
         $place->placeImage = $place->placeImage ? base64_encode($place->placeImage) : null;
         
         // Get the discounts related to the place
-        $discountData = $place->discounts()->select([
-            "users.id",
-            "users.name",
-            "users.image",
-            "discountCreatedAt",
-            "discountDescription",
-            "discountEndsAt",
-            "discountImage",
-            "discountName",
-            "discountUpdatedAt",
-            "discounts.id"
+        $currentDateTime = now();
 
-        ])->join("users", "discounts.user_id", "=", "users.id")->paginate(10);
-        
+        $discountData = $place->discounts()
+            ->select([
+                "users.id",
+                "users.name",
+                "users.image",
+                "discountCreatedAt",
+                "discountDescription",
+                "discountEndsAt",
+                "discountImage",
+                "discountName",
+                "discountUpdatedAt",
+                "discounts.id"
+            ])
+            ->join("users", "discounts.user_id", "=", "users.id")
+            ->where("discounts.discountEndsAt", ">", $currentDateTime)
+            ->orderBy("discounts.discountCreatedAt", "desc")
+            ->paginate(10);
 
         return Inertia::render("Places/show", [
             'data' => [

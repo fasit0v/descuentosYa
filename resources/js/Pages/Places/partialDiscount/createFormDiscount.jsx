@@ -15,8 +15,9 @@ export default function CreateFormDiscount({ place_id, user_id, placeName }) {
     const { data, setData, post, processing, reset, errors } = useForm({
         place_id: place_id,
         user_id: user_id,
-        discountName: null,
-        discountDesciprition: null,
+        discountName: "",
+        discountDescription: "",
+        discountEndsAt: "",
         discountImage: null,
     });
 
@@ -34,26 +35,43 @@ export default function CreateFormDiscount({ place_id, user_id, placeName }) {
 
     const onSubmit = (e) => {
         e.preventDefault();
+        const formData = new FormData();
+        formData.append("place_id", data.place_id);
+        formData.append("user_id", data.user_id);
+        formData.append("discountName", data.discountName);
+        formData.append("discountDescription", data.discountDescription);
+        formData.append("discountEndsAt", data.discountEndsAt);
+        if (data.discountImage) {
+            formData.append("discountImage", data.discountImage);
+        }
 
         post("/discounts", {
+            data: formData,
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
             onError: () => {
-                openPopUp("ocurrio un error al crear el descuento", true);
+                openPopUp("Ocurrió un error al crear el descuento", true);
             },
             onSuccess: () => {
-                openPopUp("Se creo el descuento correctamente", false);
+                openPopUp("Se creó el descuento correctamente", false);
                 closeModal();
             },
         });
     };
 
     const handleChange = (e) => {
-        setData({ ...data, [e.target.name]: e.target.value });
+        if (e.target.name === "discountImage") {
+            setData({ ...data, discountImage: e.target.files[0] });
+        } else {
+            setData({ ...data, [e.target.name]: e.target.value });
+        }
     };
 
     return (
         <>
             <PrimaryButton
-                className="bg-orange-400 text-white hover:bg-orange-500 focus:bg-orange-500 active:bg-orange-500 "
+                className="bg-orange-400 text-white hover:bg-orange-500 focus:bg-orange-500 active:bg-orange-500"
                 onClick={openModal}
             >
                 Agregar Descuento
@@ -67,13 +85,12 @@ export default function CreateFormDiscount({ place_id, user_id, placeName }) {
 
                     <div className="mt-6">
                         <InputLabel htmlFor="discountName">Titulo</InputLabel>
-
                         <TextInput
+                            required
                             name="discountName"
                             placeholder="Descuentos 2x1 en ..."
                             onChange={handleChange}
                         />
-
                         <InputError
                             message={errors.discountName}
                             className="mt-2"
@@ -84,13 +101,12 @@ export default function CreateFormDiscount({ place_id, user_id, placeName }) {
                         <InputLabel htmlFor="discountDescription">
                             Descripción
                         </InputLabel>
-
                         <TextInput
                             name="discountDescription"
-                            placeholder="Aqui puedes dar más detalles sobre el descuento"
+                            placeholder="Aqui puedes dar más detalles sobre el descuento..."
                             onChange={handleChange}
+                            className=""
                         />
-
                         <InputError
                             message={errors.discountDescription}
                             className="mt-2"
@@ -98,36 +114,49 @@ export default function CreateFormDiscount({ place_id, user_id, placeName }) {
                     </div>
 
                     <div className="mt-6">
-                        <InputLabel htmlFor="discountImage">
-                            Adjunta fotos
+                        <InputLabel htmlFor="discountEndsAt">
+                            El descuento termina el ...
                         </InputLabel>
-
                         <TextInput
-                            name="discountImage"
-                            type={"file"}
-                            className=" py-2 "
+                            name="discountEndsAt"
+                            type="date"
+                            className="py-2"
                             onChange={handleChange}
                         />
+                        <InputError
+                            message={errors.discountEndsAt}
+                            className="mt-2"
+                        />
+                    </div>
 
+                    <div className="mt-6">
+                        <InputLabel htmlFor="discountImage">
+                            Adjunta evidencia del descuento encontrado 🕵🏻‍♂️
+                        </InputLabel>
+                        <TextInput
+                            name="discountImage"
+                            type="file"
+                            className="py-2"
+                            onChange={handleChange}
+                        />
                         <InputError
                             message={errors.discountImage}
                             className="mt-2"
                         />
                     </div>
 
-                    <div className="mt-6 flex justify-end ">
+                    <div className="mt-6 flex justify-end">
                         <SecondaryButton
                             className="hover:border-orange-500"
                             onClick={closeModal}
                         >
                             Cancelar
                         </SecondaryButton>
-
                         <DangerButton
                             className="ml-3 bg-orange-400 hover:bg-orange-500"
                             disabled={processing}
                         >
-                            Crear Permiso
+                            Crear Descuento
                         </DangerButton>
                     </div>
                 </form>
