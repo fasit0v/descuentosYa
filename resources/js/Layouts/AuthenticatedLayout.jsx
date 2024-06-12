@@ -28,10 +28,13 @@ export default function Authenticated({ auth, header, children }) {
                                         <NavLink
                                             href="/"
                                             replace
-                                            active={url === "/"}
+                                            active={
+                                                url === "/" ||
+                                                url.startsWith("/places")
+                                            }
                                             className="capitalize"
                                         >
-                                            Home
+                                            Mapa
                                         </NavLink>
                                         <NavLink
                                             href="/acerca"
@@ -63,12 +66,28 @@ export default function Authenticated({ auth, header, children }) {
                                                     <span className="inline-flex rounded-md">
                                                         <button
                                                             type="button"
-                                                            className="inline-flex capitalize items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
+                                                            className="inline-flex   capitalize items-center px-3 py-2  text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
                                                         >
-                                                            <img
-                                                                src="/image/user.png"
-                                                                className="h-8 w-8"
-                                                            />
+                                                            {auth.user.image ? (
+                                                                <img
+                                                                    src={
+                                                                        auth
+                                                                            .user
+                                                                            .image
+                                                                    }
+                                                                    alt={
+                                                                        auth
+                                                                            .user
+                                                                            .name
+                                                                    }
+                                                                    className="w-10 h-10 rounded-full  object-contain border hover:border-2  border-orange-400"
+                                                                />
+                                                            ) : (
+                                                                <img
+                                                                    src="/image/user.png"
+                                                                    className="w-10 h-10 rounded-full  object-contain  border hover:border-2  border-orange-400"
+                                                                />
+                                                            )}
                                                             <svg
                                                                 className="ml-2 -mr-0.5 h-4 w-4"
                                                                 xmlns="http://www.w3.org/2000/svg"
@@ -92,9 +111,7 @@ export default function Authenticated({ auth, header, children }) {
                                                         {auth.user.email}
                                                     </div>
                                                     <Dropdown.Link
-                                                        href={route(
-                                                            "profile.edit"
-                                                        )}
+                                                        href={route("profile")}
                                                     >
                                                         Perfil
                                                     </Dropdown.Link>
@@ -119,7 +136,7 @@ export default function Authenticated({ auth, header, children }) {
                                             active={url === "/"}
                                             className="capitalize"
                                         >
-                                            Home
+                                            Mapa
                                         </NavLink>
                                         <NavLink
                                             href="/acerca"
@@ -195,10 +212,13 @@ export default function Authenticated({ auth, header, children }) {
                                             <ResponsiveNavLink
                                                 href="/"
                                                 replace
-                                                active={url === "/"}
+                                                active={
+                                                    url === "/" ||
+                                                    url.startsWith("/places")
+                                                }
                                                 className="capitalize"
                                             >
-                                                Home
+                                                Mapa
                                             </ResponsiveNavLink>
                                             <ResponsiveNavLink
                                                 href="/acerca"
@@ -230,7 +250,7 @@ export default function Authenticated({ auth, header, children }) {
                                                     {auth.user.email}
                                                 </div>
                                                 <ResponsiveNavLink
-                                                    href={route("profile.edit")}
+                                                    href={route("profile")}
                                                 >
                                                     Perfil
                                                 </ResponsiveNavLink>
@@ -253,7 +273,7 @@ export default function Authenticated({ auth, header, children }) {
                                                 active={url === "/"}
                                                 className="capitalize"
                                             >
-                                                Home
+                                                Mapa
                                             </ResponsiveNavLink>
                                             <ResponsiveNavLink
                                                 href="/acerca"
@@ -278,13 +298,34 @@ export default function Authenticated({ auth, header, children }) {
                 </nav>
                 {header && (
                     <header className="bg-white shadow">
-                        <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                            {header}
-                        </div>
+                        <div className="max-w-7xl mx-auto ">{header}</div>
                     </header>
                 )}
                 <main>{children}</main>
             </div>
+            <footer className="bg-orange-400 text-white py-4">
+                <div className="container mx-auto px-4">
+                    <div className="flex justify-between items-center">
+                        <div className="text-sm">
+                            © 2024 DescuentoYa. Todos los derechos reservados.
+                        </div>
+                        <div className="space-x-4">
+                            <Link
+                                href="/"
+                                className="text-white hover:text-orange-200"
+                            >
+                                Inicio
+                            </Link>
+                            <Link
+                                href="/acerca"
+                                className="text-white hover:text-orange-200"
+                            >
+                                Acerca de
+                            </Link>
+                        </div>
+                    </div>
+                </div>
+            </footer>
         </PopUpMessageContextProvider>
     );
 }

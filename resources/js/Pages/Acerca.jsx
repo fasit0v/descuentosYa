@@ -1,8 +1,16 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
+import { useState } from "react";
 import Slider from "react-slick";
+import { TextToSpeech } from "tts-react";
 
 export default function Dashboard(props) {
+    const [speech, setSpeech] = useState(null);
+
+    const handleChangeSpeech = (num) => {
+        setSpeech(num);
+    };
+
     const settings = {
         dots: true,
         infinite: true,
@@ -10,102 +18,125 @@ export default function Dashboard(props) {
         slidesToShow: 1,
         slidesToScroll: 1,
     };
+
+    const texts = [
+        {
+            title: "DescuentosYa.",
+            content:
+                "Somos Lambda, un equipo dedicado a promover el ahorro en Formosa Capital. Nuestra comunidad participativa está diseñada para ayudar a los ciudadanos a maximizar sus ahorros y gestionar mejor sus finanzas.",
+        },
+        {
+            title: "Nuestra Misión.",
+            content:
+                "En Lambda, creemos en el poder de la comunidad para transformar la gestión de las finanzas personales. Nuestra misión es hacer que el ahorro sea accesible y conveniente para todos.",
+        },
+        {
+            title: "Nuestra Visión.",
+            content:
+                "Aspiramos a convertirnos en la referencia para el ahorro en Formosa Capital y más allá. Nuestra visión es expandir nuestra comunidad, con compromiso en la transparencia, colaboración y mejora continua.",
+        },
+        {
+            title: "Únete a Nosotros.",
+            content:
+                "Únete a Descuentos Ya y fomenta un consumo más consciente y responsable. Juntos, podemos hacer de Formosa Capital una ciudad donde el ahorro están al alcance de todos.",
+        },
+    ];
+
     return (
         <AuthenticatedLayout auth={props.auth} errors={props.errors}>
             <Head title="Acerca" />
+            <div className="my-8 lg:px-40 overflow-hidden">
+                <Slider {...settings}>
+                    <div>
+                        <img
+                            src="/image/MapsImage.png"
+                            alt="Imagen 1"
+                            className=" w-full h-80 object-fill aspect-video"
+                        />
+                    </div>
+                    <div>
+                        <img
+                            src="/image/Formosaimage.webp"
+                            alt="Imagen 2"
+                            className="w-full h-80 object-fill"
+                        />
+                    </div>
+                    <div>
+                        <img
+                            src="/image/Promociones-supermercado.jpg"
+                            alt="Imagen 3"
+                            className="w-full h-80 object-fill"
+                        />
+                    </div>
+                </Slider>
+            </div>
+
             <div className="bg-white p-8">
-                <h1 className="text-4xl font-bold text-center text-orange-600 mb-8">
-                    Acerca de Nosotros
-                </h1>
-                <div className="mb-8">
-                    <Slider {...settings}>
-                        <div>
-                            <img
-                                src="https://via.placeholder.com/800x400"
-                                alt="Imagen 1"
-                                className="w-full h-64 object-cover"
-                            />
-                        </div>
-                        <div>
-                            <img
-                                src="https://via.placeholder.com/800x400"
-                                alt="Imagen 2"
-                                className="w-full h-64 object-cover"
-                            />
-                        </div>
-                        <div>
-                            <img
-                                src="https://via.placeholder.com/800x400"
-                                alt="Imagen 3"
-                                className="w-full h-64 object-cover"
-                            />
-                        </div>
-                    </Slider>
-                </div>
                 <div className="max-w-4xl mx-auto">
-                    <p className="text-lg mb-6">
-                        ¡Saludos! Somos el equipo de desarrollo Lamba, y nuestra
-                        misión es promover y fomentar el ahorro entre los
-                        ciudadanos de Formosa Capital a través de una comunidad
-                        participativa y comprometida. Nuestra aplicación está
-                        diseñada para ser una herramienta poderosa que permita a
-                        los usuarios compartir y descubrir información valiosa
-                        sobre establecimientos comerciales en la ciudad,
-                        incluyendo ofertas, promociones y descuentos.
-                    </p>
-
+                    <TextToSpeech
+                        align="horizontal"
+                        position="topCenter"
+                        autoPlay={speech == 1}
+                        onEnd={() => handleChangeSpeech(2)}
+                        lang="es-ES"
+                        volume={1}
+                    >
+                        <h1 className="text-4xl font-bold text-center text-orange-600 mb-8">
+                            {texts[0].title}
+                        </h1>
+                        <p className="text-lg mb-6">{texts[0].content}</p>
+                    </TextToSpeech>
                     <div className="mb-8">
-                        <h2 className="text-2xl font-semibold text-gray-800 mb-4">
-                            Nuestra Misión
-                        </h2>
-                        <p className="text-lg mb-4">
-                            En Lamba, creemos en el poder de la comunidad para
-                            transformar la manera en que gestionamos nuestras
-                            finanzas personales. Nuestra misión es hacer que el
-                            ahorro sea accesible y conveniente para todos,
-                            creando una red de usuarios que comparten
-                            activamente las mejores oportunidades para
-                            economizar en sus compras diarias.
-                        </p>
+                        <TextToSpeech
+                            align="vertical"
+                            position="leftCenter"
+                            autoPlay={speech == 2}
+                            onEnd={() => handleChangeSpeech(3)}
+                            lang="es-ES"
+                            volume={1}
+                        >
+                            <h2 className="text-2xl font-semibold text-orange-600 mb-4">
+                                {texts[1].title}
+                            </h2>
+                            <p className="text-lg mb-4">{texts[1].content}</p>
+                        </TextToSpeech>
                     </div>
 
                     <div className="mb-8">
-                        <h2 className="text-2xl font-semibold text-gray-800 mb-4">
-                            Nuestra Visión
-                        </h2>
-                        <p className="text-lg mb-4">
-                            Aspiramos a convertirnos en la aplicación de
-                            referencia para el ahorro en Formosa Capital, y más
-                            allá. Nuestra visión es crecer y expandir nuestra
-                            comunidad, siempre manteniendo nuestro compromiso
-                            con la transparencia, la colaboración y la mejora
-                            continua. Imaginamos un futuro donde el ahorro
-                            inteligente sea una práctica común, y donde cada
-                            ciudadano tenga las herramientas necesarias para
-                            hacer rendir al máximo su dinero.
-                        </p>
+                        <TextToSpeech
+                            align="vertical"
+                            position="rightCenter"
+                            autoPlay={speech == 3}
+                            onEnd={() => handleChangeSpeech(4)}
+                            lang="es-ES"
+                            volume={1}
+                        >
+                            <h2 className="text-2xl font-semibold text-orange-600 mb-4 text-right">
+                                {texts[2].title}
+                            </h2>
+                            <p className="text-lg mb-4 text-right">
+                                {texts[2].content}
+                            </p>
+                        </TextToSpeech>
                     </div>
 
                     <div className="mb-8">
-                        <h2 className="text-2xl font-semibold text-gray-800 mb-4">
-                            Únete a Nosotros
-                        </h2>
-                        <p className="text-lg mb-4">
-                            Te invitamos a unirte a la comunidad de Lamba y ser
-                            parte de este movimiento hacia un consumo más
-                            consciente y responsable. Juntos, podemos hacer de
-                            Formosa Capital una ciudad donde cada centavo cuenta
-                            y donde las oportunidades de ahorro están al alcance
-                            de todos.
-                        </p>
-                        <p className="text-lg">
-                            Gracias por confiar en Lamba. ¡Vamos a ahorrar
-                            juntos!
-                        </p>
+                        <TextToSpeech
+                            align="vertical"
+                            position="leftCenter"
+                            autoPlay={speech == 4}
+                            onEnd={() => handleChangeSpeech(null)}
+                            lang="es-ES"
+                            volume={1}
+                        >
+                            <h2 className="text-2xl font-semibold text-orange-600 mb-4">
+                                {texts[3].title}
+                            </h2>
+                            <p className="text-lg mb-4">{texts[3].content}</p>
+                        </TextToSpeech>
                     </div>
                 </div>
             </div>
-            );
         </AuthenticatedLayout>
     );
 }

@@ -16,12 +16,13 @@ return new class extends Migration
         Schema::create('places', function (Blueprint $table) {
             $table->id();
             $table->string("placeName", 256);
-            $table->string("placeDescription", 256)->nullable();
             $table->string("placeAddress", 256);
             $table->binary("placeImage")->nullable();
             $table->string("placeLongitude", 20); // Cambio a cadena de texto
             $table->string("placeLatitude", 20);  // Cambio a cadena de texto
-            $table->string("placeCategory", 20);
+            $table->unsignedBigInteger("placeCategory_id");
+
+            $table->foreign("placeCategory_id")->references("id")->on("place_categories")->onDelete("cascade");
         });
 
     }

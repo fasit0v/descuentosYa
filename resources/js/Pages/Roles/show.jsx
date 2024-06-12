@@ -3,20 +3,24 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link, router } from "@inertiajs/react";
 import CreatePermissionForm from "./partialsPermissions/createPermissionForm";
 import DeletePermissionForm from "./partialsPermissions/deletePermissionForm";
+import AddUserToThisRole from "./partialsPermissions/addUserToRole";
 
 export default function Show(props) {
     if (!props.auth.availableRoutes.some((i) => i.moduleName == "roles")) {
         router.get("/");
     }
 
-    const { role, permissions, users, modules } = props.data;
+    const { role, permissions, users, modules, usersWithOutThisRole } =
+        props.data;
+
+    console.log(usersWithOutThisRole);
 
     return (
         <AuthenticatedLayout
             auth={props.auth}
             errors={props.errors}
             header={
-                <h2 className="capitalize font-semibold text-xl text-gray-800 leading-tight">
+                <h2 className="capitalize font-semibold text-xl text-gray-800 leading-tight p-2">
                     Rol "{role.roleName}"
                 </h2>
             }
@@ -54,16 +58,27 @@ export default function Show(props) {
                                     </g>
                                 </svg>
                             </Link>
-
-                            {props.auth.permissionsInRoute.some(
-                                (i) => i.canCreate == 1
-                            ) && (
-                                <CreatePermissionForm
-                                    id={role.id}
-                                    modules={modules}
-                                    roleName={role.roleName}
-                                />
-                            )}
+                            <div className="flex gap-2 flex-col text-center">
+                                {props.auth.permissionsInRoute.some(
+                                    (i) => i.canCreate == 1
+                                ) && (
+                                    <>
+                                        <CreatePermissionForm
+                                            id={role.id}
+                                            modules={modules}
+                                            roleName={role.roleName}
+                                        />
+                                        <AddUserToThisRole
+                                            role_id={role.id}
+                                            roleName={role.roleName}
+                                            userWithOutRole={
+                                                usersWithOutThisRole
+                                            }
+                                            users={users}
+                                        />
+                                    </>
+                                )}
+                            </div>
                         </div>
                         {permissions ? (
                             <>

@@ -9,7 +9,7 @@ const appName =
     window.document.getElementsByTagName("title")[0]?.innerText || "Laravel";
 
 createInertiaApp({
-    title: (title) => `${title} - DescuentosYa`,
+    title: (title) => (title ? `DescuentosYa - ${title}` : `DescuentosYa`),
     resolve: (name) =>
         resolvePageComponent(
             `./Pages/${name}.jsx`,

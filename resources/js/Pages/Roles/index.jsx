@@ -15,7 +15,7 @@ export default function Role(props) {
             auth={props.auth}
             errors={props.errors}
             header={
-                <h2 className="font-semibold text-xl text-gray-800 leading-tight">
+                <h2 className="font-semibold text-xl text-gray-800 leading-tight p-2">
                     Gestion de Roles
                 </h2>
             }
@@ -128,75 +128,26 @@ export default function Role(props) {
                                             className="flex justify-center py-2"
                                         >
                                             <div className=" w-min rounded-lg flex align-middle">
-                                                {props.roles.links.map((i) => (
-                                                    <NavLink
-                                                        key={i.label}
-                                                        href={i.url}
-                                                        active={i.active}
-                                                        className={
-                                                            "flex items-center bg-orange-400  justify-center px-3 h-8 leading-tight  text-white border border-gray-300 hover:bg-gray-200  hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white " +
-                                                            (i.label.includes(
-                                                                "Previous"
-                                                            )
-                                                                ? " rounded-l-lg"
-                                                                : i.label.includes(
-                                                                      "Next"
-                                                                  )
-                                                                ? " rounded-r-lg"
-                                                                : " border-0")
-                                                        }
-                                                    >
-                                                        {i.label.includes(
-                                                            "Previous"
-                                                        ) ? (
-                                                            <>
-                                                                <span className="sr-only">
-                                                                    Previous
-                                                                </span>
-                                                                <svg
-                                                                    className="w-2.5 h-2.5 rtl:rotate-180"
-                                                                    aria-hidden="true"
-                                                                    xmlns="http://www.w3.org/2000/svg"
-                                                                    fill="none"
-                                                                    viewBox="0 0 6 10"
-                                                                >
-                                                                    <path
-                                                                        stroke="currentColor"
-                                                                        strokeLinecap="round"
-                                                                        strokeLinejoin="round"
-                                                                        strokeWidth="2"
-                                                                        d="M5 1 1 5l4 4"
-                                                                    />
-                                                                </svg>
-                                                            </>
-                                                        ) : i.label.includes(
-                                                              "Next"
-                                                          ) ? (
-                                                            <div className="">
-                                                                <span className="sr-only">
-                                                                    Next
-                                                                </span>
-                                                                <svg
-                                                                    className="w-2.5 h-2.5 rtl:rotate-180"
-                                                                    aria-hidden="true"
-                                                                    xmlns="http://www.w3.org/2000/svg"
-                                                                    fill="none"
-                                                                    viewBox="0 0 6 10"
-                                                                >
-                                                                    <path
-                                                                        stroke="currentColor"
-                                                                        strokeLinecap="round"
-                                                                        strokeLinejoin="round"
-                                                                        strokeWidth="2"
-                                                                        d="m1 9 4-4-4-4"
-                                                                    />
-                                                                </svg>
-                                                            </div>
-                                                        ) : (
-                                                            i.label
-                                                        )}
-                                                    </NavLink>
-                                                ))}
+                                                {props.roles.links.map(
+                                                    (link, index) => (
+                                                        <button
+                                                            key={index}
+                                                            onClick={() =>
+                                                                handlePageChange(
+                                                                    link.url
+                                                                )
+                                                            }
+                                                            disabled={!link.url}
+                                                            className={`px-4 py-2 rounded ${
+                                                                link.active
+                                                                    ? "bg-orange-500 text-white"
+                                                                    : "bg-gray-300 text-gray-700"
+                                                            } disabled:opacity-50`}
+                                                        >
+                                                            {link.label}
+                                                        </button>
+                                                    )
+                                                )}
                                             </div>
                                         </nav>
                                     </>
