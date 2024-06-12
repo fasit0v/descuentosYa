@@ -58,7 +58,7 @@ export default function Show(props) {
                                     </g>
                                 </svg>
                             </Link>
-                            <div className="flex gap-1 flex-col">
+                            <div className="flex gap-2 flex-col text-center">
                                 {props.auth.permissionsInRoute.some(
                                     (i) => i.canCreate == 1
                                 ) && (
@@ -74,6 +74,7 @@ export default function Show(props) {
                                             userWithOutRole={
                                                 usersWithOutThisRole
                                             }
+                                            users={users}
                                         />
                                     </>
                                 )}

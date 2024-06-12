@@ -54,7 +54,7 @@ Route::resource("roles", RoleController::class)->only(["index","show" ,"store", 
 /* Roles Permission */
 Route::resource("permissions", PermissionsController::class)->only(["store", "update", "destroy"])->middleware(["auth"]);
 
-Route::post("/userRoles",[RoleController::class, "addUserToRole"])->middleware(["auth"]);
+Route::post("/userRoles",[RoleController::class, "userToRole"])->middleware(["auth"]);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
