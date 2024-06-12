@@ -111,9 +111,7 @@ export default function Authenticated({ auth, header, children }) {
                                                         {auth.user.email}
                                                     </div>
                                                     <Dropdown.Link
-                                                        href={route(
-                                                            "profile.edit"
-                                                        )}
+                                                        href={route("profile")}
                                                     >
                                                         Perfil
                                                     </Dropdown.Link>
@@ -252,7 +250,7 @@ export default function Authenticated({ auth, header, children }) {
                                                     {auth.user.email}
                                                 </div>
                                                 <ResponsiveNavLink
-                                                    href={route("profile.edit")}
+                                                    href={route("profile")}
                                                 >
                                                     Perfil
                                                 </ResponsiveNavLink>
