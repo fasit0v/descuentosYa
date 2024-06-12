@@ -35,11 +35,12 @@ class PlaceController extends Controller
                 "discounts.id as discount_id",
                 DB::raw("(SELECT COUNT(*) FROM likes WHERE likes.user_id = {$userId} and likes.discount_id = discounts.id) as likedByUser"),
                 DB::raw("COUNT(likes.id) AS likesQuantity"),
+                DB::raw("COUNT(comments.id) AS commentsQuantity")
                 
             ])
             ->join("users", "discounts.user_id", "=", "users.id")
             ->leftJoin("likes", "likes.discount_id", "=", "discounts.id")
-            
+            ->leftJoin("comments","discounts.id","=","comments.discount_id")
             ->where("discounts.discountEndsAt", ">", $currentDateTime)
             ->orderBy("discounts.discountCreatedAt", "desc")
             ->groupBy([

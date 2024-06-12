@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Models\Module;
 use App\Models\Permissions;
 use App\Models\Role;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
@@ -34,17 +35,19 @@ class RoleController extends Controller
         $permissions = Permissions::join("modules","modules.id", "=","permissions.module_id")->where("permissions.role_id", "=", $request->role)->select(["modules.moduleName", "permissions.canCreate","permissions.canRead","permissions.canUpdate","permissions.canDelete", "permissions.id"])->get();
         $users = Role::join("user_roles","user_roles.role_id", "=","roles.id")->join("users", "user_roles.user_id", "=", "users.id")->where("user_roles.role_id", "=", $request->role)->select(["users.name", "users.id" ])->get();
         $modules = Module::all();
-
+        $usersWithOutThisRole = User::select(["users.name", "users.id", "users.email"])->join("user_roles", "users.id", "=", "user_roles.user_id")->where("user_roles.role_id","!=",$request->role)->get();
 
         return Inertia::render("Roles/show",[
             "data" =>[
                 "role" => $role,
                 "permissions" => $permissions,
                 "users" => $users,
-                "modules" => $modules
+                "modules" => $modules,
+                "usersWithOutThisRole"=>$usersWithOutThisRole
             ]
         ]) ;
     }
+
 
     public function store(Request $request){
 
@@ -78,4 +81,14 @@ class RoleController extends Controller
         Role::select("id")->where("id", "=",$request->id)->where("roleName", "=", $request->roleName)->delete();
         return Redirect::to('/roles');
     }
+
+    public function addUserToRole(Request $request){
+
+        $request->validate([
+            "role_id"=> "required|integer",
+            "user_id"=> "required|integer"
+        ]);
+
+    }
+
 }

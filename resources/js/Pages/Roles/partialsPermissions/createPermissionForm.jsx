@@ -60,10 +60,10 @@ function CreatePermissionForm({ id, roleName, modules }) {
     return (
         <>
             <PrimaryButton
-                className="p-1 w-min aspect-square"
+                className="bg-orange-400 capitalize text-white hover:bg-orange-500 focus:bg-orange-500 active:bg-orange-500"
                 onClick={confirmPermissionCreation}
             >
-                +
+                Agregar permiso
             </PrimaryButton>
 
             <Modal show={confirmingPermissionCreation} onClose={closeModal}>

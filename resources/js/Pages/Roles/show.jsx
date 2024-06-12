@@ -3,13 +3,17 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link, router } from "@inertiajs/react";
 import CreatePermissionForm from "./partialsPermissions/createPermissionForm";
 import DeletePermissionForm from "./partialsPermissions/deletePermissionForm";
+import AddUserToThisRole from "./partialsPermissions/addUserToRole";
 
 export default function Show(props) {
     if (!props.auth.availableRoutes.some((i) => i.moduleName == "roles")) {
         router.get("/");
     }
 
-    const { role, permissions, users, modules } = props.data;
+    const { role, permissions, users, modules, usersWithOutThisRole } =
+        props.data;
+
+    console.log(usersWithOutThisRole);
 
     return (
         <AuthenticatedLayout
@@ -54,16 +58,26 @@ export default function Show(props) {
                                     </g>
                                 </svg>
                             </Link>
-
-                            {props.auth.permissionsInRoute.some(
-                                (i) => i.canCreate == 1
-                            ) && (
-                                <CreatePermissionForm
-                                    id={role.id}
-                                    modules={modules}
-                                    roleName={role.roleName}
-                                />
-                            )}
+                            <div className="flex gap-1 flex-col">
+                                {props.auth.permissionsInRoute.some(
+                                    (i) => i.canCreate == 1
+                                ) && (
+                                    <>
+                                        <CreatePermissionForm
+                                            id={role.id}
+                                            modules={modules}
+                                            roleName={role.roleName}
+                                        />
+                                        <AddUserToThisRole
+                                            role_id={role.id}
+                                            roleName={role.roleName}
+                                            userWithOutRole={
+                                                usersWithOutThisRole
+                                            }
+                                        />
+                                    </>
+                                )}
+                            </div>
                         </div>
                         {permissions ? (
                             <>
