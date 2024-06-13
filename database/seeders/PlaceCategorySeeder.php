@@ -16,8 +16,13 @@ class PlaceCategorySeeder extends Seeder
     public function run()
     {
         DB::table("place_categories")->insert([
-            ["placeCategoryName"=>"Farmacia"],
-            ["placeCategoryName"=>"HiperMercado"]
+            ["placeCategoryName" => "Farmacia"],
+            ["placeCategoryName" => "HiperMercado"],
+            ["placeCategoryName" => "Restaurante"],
+            ["placeCategoryName" => "Automotriz"],
+            ["placeCategoryName" => "Heladeria"],
+            ["placeCategoryName" => "Supermercado"],
+            ["placeCategoryName" => "Panadería"]
         ]);
     }
 }

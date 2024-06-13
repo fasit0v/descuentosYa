@@ -38,7 +38,7 @@ export default function Dashboard(props) {
         {
             title: "Únete a Nosotros.",
             content:
-                "Únete a Descuentos Ya y fomenta un consumo más consciente y responsable. Juntos, podemos hacer de Formosa Capital una ciudad donde el ahorro están al alcance de todos.",
+                "Únete a Descuentos Ya y fomenta un consumo más consciente y responsable. Juntos, podemos hacer de Formosa Capital una ciudad donde el ahorro este al alcance de todos.",
         },
     ];
 

@@ -9,22 +9,9 @@ use App\Http\Controllers\PlaceController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\RoleController;
-use App\Http\Controllers\UserRoleController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
 
 
 /* Home */
@@ -36,21 +23,19 @@ Route::get('/acerca', function () {
 })->name('acerca');
 
 
-
-/* Places */
+/* Places with discounts */
 Route::get("/places/{place}", [PlaceController::class,"show"]);
 
-/* comments */
-Route::get("/places/{place}/discount/{discount}",[DiscountController::class, "show"]);
-
-Route::post("/comment", [CommentController::class, "store"])->middleware(["auth"]);
-
-
-/* Discount */
+/* Discount  */
 Route::resource("discounts", DiscountController::class)->only(["store" ])->middleware(["auth"]);
+
+Route::get("/discounts/{discount}",[DiscountController::class, "show"]);
 
 /* Likes */
 Route::post("/likes",[LikeController::class,"like"])->middleware(["auth"]);
+
+/* Comments */
+Route::post("/comments", [CommentController::class, "store"])->middleware(["auth"]);
 
 /* Reportes TODO */
 Route::resource("reportes", ReportController::class)->only(["index", "store"])->middleware(["auth"]);

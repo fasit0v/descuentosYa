@@ -1,10 +1,13 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
 use App\Models\Discount;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Storage;
+use Inertia\Inertia;
 
 class DiscountController extends Controller
 {
@@ -65,5 +68,73 @@ class DiscountController extends Controller
     public function update()
     {
         // Método update
+    }
+
+    public function show($discount, Request $request){
+
+        
+
+        $userId = $request->user()->id;
+
+        $discountData = Discount::select([
+                "users.id as user_id",
+                "users.name as user_name",
+                "users.image as user_image",
+                "discounts.discountCreatedAt",
+                "discounts.discountDescription",
+                "discounts.discountEndsAt",
+                "discounts.discountImage",
+                "discounts.discountName",
+                "discounts.discountUpdatedAt",
+                "discounts.id as discount_id",
+                DB::raw("(SELECT COUNT(*) FROM likes WHERE likes.user_id = {$userId} and likes.discount_id = discounts.id) as likedByUser"),
+                DB::raw("COUNT(likes.id) AS likesQuantity"),
+                DB::raw("COUNT(comments.id) AS commentsQuantity")
+            ])->join("users", "discounts.user_id", "=", "users.id")
+            ->leftJoin("likes", "likes.discount_id", "=", "discounts.id")
+            ->leftJoin("comments","discounts.id","=","comments.discount_id")
+            ->groupBy([
+                "users.id",
+                "users.name",
+                "users.image",
+                "discounts.discountCreatedAt",
+                "discounts.discountDescription",
+                "discounts.discountEndsAt",
+                "discounts.discountImage",
+                "discounts.discountName",
+                "discounts.discountUpdatedAt",
+                "discounts.id",
+            ])
+            ->findOrFail($discount);
+
+        $commentsData = Comment::select([
+            "users.id as user_id",
+            "users.name as user_name",
+            "users.image as user_image",
+            "comments.commentCreateAt",
+            "comments.commentDescription",
+            "comments.commentImage",
+            "comments.id as comment_id",
+        ])
+        ->join("users", "comments.user_id", "=", "users.id")
+        ->where('comments.discount_id', $discountData->discount_id)
+        ->groupBy([
+            "users.id",
+            "users.name",
+            "users.image",
+            "comments.commentCreateAt",
+            "comments.commentDescription",
+            "comments.commentImage",
+            "comments.id",
+        ])
+    ->paginate(10);
+
+        return Inertia::render("Discounts/Show", [
+            'data' => [
+                'discount' => $discountData,
+                'commentsData' => $commentsData,
+                
+            ],
+        ]);
     }
 }

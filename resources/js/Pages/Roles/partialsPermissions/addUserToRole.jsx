@@ -148,10 +148,27 @@ export default function AddUserToThisRole({
                                     >
                                         <DangerButton
                                             onClick={() =>
-                                                router.post("/userRoles", {
-                                                    role_id: role_id,
-                                                    user_id: i.id,
-                                                })
+                                                router.post(
+                                                    "/userRoles",
+                                                    {
+                                                        role_id: role_id,
+                                                        user_id: i.id,
+                                                    },
+                                                    {
+                                                        onError: () => {
+                                                            openPopUp(
+                                                                "Ocurrió un error al eliminar el usuario",
+                                                                true
+                                                            );
+                                                        },
+                                                        onSuccess: () => {
+                                                            openPopUp(
+                                                                "Se elimino correctamente el usuario",
+                                                                false
+                                                            );
+                                                        },
+                                                    }
+                                                )
                                             }
                                         >
                                             ❌

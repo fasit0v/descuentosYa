@@ -8,6 +8,7 @@ import PrimaryButton from "@/Components/PrimaryButton";
 
 export default function Welcome(props) {
     const { data } = props;
+    console.log(data);
     const [selectedPlace, setSelectedPlace] = useState(null);
 
     const handleMarkerClick = (place) => {

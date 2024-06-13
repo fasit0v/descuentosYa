@@ -1,7 +1,7 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link } from "@inertiajs/react";
 import { useState, useEffect } from "react";
-import DiscountPaginate from "./partial/DiscountPaginate";
+import DiscountPaginate from "../../Components/DiscountPaginate";
 import { TextToSpeech } from "tts-react";
 import CreateFormDiscount from "./partialDiscount/createFormDiscount";
 
@@ -62,11 +62,11 @@ export default function Show(props) {
                             volume={1}
                         >
                             <div className="text-orange-500  text-center my-2 text-3xl font-bold capitalize">
-                                <h2>{place.placeName}</h2>
+                                <h2>{place.placeName}.</h2>
                             </div>
                             <div className="text-center text-gray-700 my-2">
-                                <p>{place.placeCategoryName}</p>
-                                <p>{place.placeAddress}</p>
+                                <p>{place.placeCategoryName}.</p>
+                                <p>{place.placeAddress}.</p>
                             </div>
                             <div className="overflow-hidden flex justify-center lg:px-40">
                                 {imageUrl && (
@@ -79,7 +79,7 @@ export default function Show(props) {
                             </div>
                         </TextToSpeech>
                         <div className="text-orange-500 text-left my-10  flex justify-between align-middle">
-                            <h4 className="text-2xl">Descuentos</h4>
+                            <h4 className="text-2xl font-bold">Descuentos</h4>
                             {props.auth.user && (
                                 <CreateFormDiscount
                                     place_id={place.id}
