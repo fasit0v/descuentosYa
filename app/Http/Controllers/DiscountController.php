@@ -60,14 +60,86 @@ class DiscountController extends Controller
         }
     }
 
-    public function destroy()
+   
+
+    public function destroy(Request $request, $discount)
     {
-        // Método destroy
+        try {
+            // Obtener el ID del usuario autenticado
+            $user_id = $request->user()->id;
+
+            // Buscar el descuento
+            $discount = Discount::where('user_id', $user_id)
+                                ->where('id', $discount)
+                                ->first();
+
+            // Validar la existencia del descuento
+            if (!$discount) {
+                throw ValidationException::withMessages([
+                    'error' => 'Ocurrió un error al borrar el descuento. Descuento no encontrado.'
+                ]);
+            }
+
+            // Eliminar la imagen asociada si existe
+            if ($discount->discountImage) {
+                Storage::delete('public/' . $discount->discountImage);
+            }
+
+            // Eliminar el descuento
+            $discount->delete();
+
+            // Redireccionar con éxito
+            return redirect()->back()->with('success', 'El descuento se ha eliminado');
+
+        } catch (ValidationException $e) {
+            // Manejar las excepciones de validación específicamente
+            return redirect()->back()->withErrors($e->errors())->withInput();
+        } catch (\Exception $e) {
+            // Manejar cualquier otra excepción
+            return redirect()->back()->with('error', 'An unexpected error occurred: ' . $e->getMessage());
+        }
     }
 
-    public function update()
+
+
+    public function update(Request $request)
     {
-        // Método update
+        try {
+            // Validar la solicitud
+            $request->validate([
+                "discount_id" => "required|integer",
+                "discountName" => "required|string|max:255",
+                "discountDescription" => "nullable|string|max:255",
+                "discountEndsAt" => "nullable|date"
+            ]);
+
+            // Crear una nueva instancia de Discount
+            $user_id = $request->user()->id;
+
+            $discount = Discount::where("user_id","=", $user_id)->where("id","=", $request->discount_id)->get();
+            // Almacenar la imagen si está presente
+            if ($discount->isEmpty()) {
+                throw ValidationException::withMessages([
+                    "error" => "Ocurrio un error al actualizar el descuento"
+                ]);
+            }
+
+            DB::table("discounts")->where("user_id","=", $user_id)->where("id","=", $request->discount_id)->update([
+                "discount_id" => $request->discount_id,
+                "discountName" => $request->discountName,
+                "discountDescription" => $request->discountDescription,
+                "discountEndsAt" => $request->discountEndsAt,
+            ]);
+            // Redireccionar con éxito
+            return redirect()->back()->with('success', 'El descuento se ha eliminado');
+
+        } catch (ValidationException $e) {
+            // Manejar las excepciones de validación específicamente
+            return redirect()->back()->withErrors($e->errors())->withInput();
+        } catch (\Exception $e) {
+            // Manejar cualquier otra excepción
+            return redirect()->back()->with('error', 'An unexpected error occurred: ' . $e->getMessage());
+        }
     }
 
     public function show($discount, Request $request){

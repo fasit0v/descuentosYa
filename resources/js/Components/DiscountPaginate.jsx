@@ -3,7 +3,13 @@ import React from "react";
 import Discount from "./Discount";
 import { router } from "@inertiajs/react";
 
-const DiscountPaginate = ({ discounts, currentPage, lastPage, links }) => {
+const DiscountPaginate = ({
+    discounts,
+    currentPage,
+    lastPage,
+    links,
+    user_id,
+}) => {
     const handlePageChange = (url) => {
         if (url) {
             router.get(
@@ -21,7 +27,11 @@ const DiscountPaginate = ({ discounts, currentPage, lastPage, links }) => {
         <div>
             <div>
                 {discounts.map((discount) => (
-                    <Discount key={discount.discount_id} discount={discount} />
+                    <Discount
+                        key={discount.discount_id || discount.id}
+                        discount={discount}
+                        user_id={user_id}
+                    />
                 ))}
             </div>
             <div className="flex justify-center my-4">

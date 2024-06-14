@@ -27,7 +27,7 @@ Route::get('/acerca', function () {
 Route::get("/places/{place}", [PlaceController::class,"show"]);
 
 /* Discount  */
-Route::resource("discounts", DiscountController::class)->only(["store" ])->middleware(["auth"]);
+Route::resource("discounts", DiscountController::class)->only(["store", "update","destroy" ])->middleware(["auth"]);
 
 Route::get("/discounts/{discount}",[DiscountController::class, "show"]);
 
@@ -35,7 +35,7 @@ Route::get("/discounts/{discount}",[DiscountController::class, "show"]);
 Route::post("/likes",[LikeController::class,"like"])->middleware(["auth"]);
 
 /* Comments */
-Route::post("/comments", [CommentController::class, "store"])->middleware(["auth"]);
+Route::resource("/comments", CommentController::class)->only([ "store", "update", "destroy"])->middleware(["auth"]);
 
 /* Reportes TODO */
 Route::resource("reportes", ReportController::class)->only(["index", "store"])->middleware(["auth"]);
@@ -48,11 +48,12 @@ Route::resource("permissions", PermissionsController::class)->only(["store", "up
 
 Route::post("/userRoles",[RoleController::class, "userToRole"])->middleware(["auth"]);
 
+Route::get("/profile/{user}",[ProfileController::class,"show"]);
+
 Route::middleware('auth')->group(function () {
-    Route::get("profile",[ProfileController::class,"show"])->name("profile");
-    Route::get('/profile/config', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile/config', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile/config', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/profileconfig', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profileconfig', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profileconfig', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
 require __DIR__.'/auth.php';

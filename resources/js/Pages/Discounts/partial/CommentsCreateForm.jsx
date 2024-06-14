@@ -96,7 +96,7 @@ export default function CommentsCreateForm({ discount_id, user_id }) {
 
                     <div className="mt-6">
                         <InputLabel htmlFor="commentImage">
-                            Adjunta evidencia del descuento encontrado 🕵🏻‍♂️
+                            Adjunta imagenes
                         </InputLabel>
                         <TextInput
                             name="commentImage"
@@ -121,7 +121,7 @@ export default function CommentsCreateForm({ discount_id, user_id }) {
                             className="ml-3 bg-orange-400 hover:bg-orange-500"
                             disabled={processing}
                         >
-                            Crear Descuento
+                            Crear Comentario
                         </DangerButton>
                     </div>
                 </form>

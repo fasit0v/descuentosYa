@@ -4,7 +4,13 @@ import Discount from "./Discount";
 import { router } from "@inertiajs/react";
 import Comment from "./Comment";
 
-const CommentPaginate = ({ comments, currentPage, lastPage, links }) => {
+const CommentPaginate = ({
+    comments,
+    currentPage,
+    lastPage,
+    links,
+    user_id,
+}) => {
     const handlePageChange = (url) => {
         if (url) {
             router.get(
@@ -22,7 +28,11 @@ const CommentPaginate = ({ comments, currentPage, lastPage, links }) => {
         <div>
             <div>
                 {comments.map((comment) => (
-                    <Comment key={comment.comment_id} comment={comment} />
+                    <Comment
+                        key={comment.comment_id}
+                        comment={comment}
+                        user_id={user_id}
+                    />
                 ))}
             </div>
             <div className="flex justify-center my-4">

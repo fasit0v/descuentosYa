@@ -93,6 +93,7 @@ export default function Show(props) {
                             currentPage={discountData.current_page}
                             lastPage={discountData.last_page}
                             links={discountData.links}
+                            user_id={props.auth.user.id}
                         />
                     </div>
                 </div>

@@ -8,7 +8,7 @@ import PrimaryButton from "@/Components/PrimaryButton";
 
 export default function Welcome(props) {
     const { data } = props;
-    console.log(data);
+
     const [selectedPlace, setSelectedPlace] = useState(null);
 
     const handleMarkerClick = (place) => {
@@ -24,7 +24,7 @@ export default function Welcome(props) {
             lat: -26.185381014712792,
             lng: -58.17849591699535,
         },
-        zoom: 12,
+        zoom: 13,
     };
 
     return (

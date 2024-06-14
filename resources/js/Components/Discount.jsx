@@ -1,15 +1,30 @@
-import React from "react";
+import React, { useContext } from "react";
 import ReactTimeago from "react-timeago";
 import spanishStrings from "react-timeago/lib/language-strings/es";
 import buildFormatter from "react-timeago/lib/formatters/buildFormatter";
 import { TextToSpeech } from "tts-react";
-import { router } from "@inertiajs/react";
+import { Link, router } from "@inertiajs/react";
 import ButtonLike from "@/Components/ButtonLike";
 import ButtonComment from "./ButtonComment";
+import DangerButton from "./DangerButton";
+import context from "@/Context/context";
 
 const formatter = buildFormatter(spanishStrings);
 
 const Discount = ({ discount, ...props }) => {
+    const { openPopUp } = useContext(context);
+
+    const handleDelete = () => {
+        router.delete(`/discounts/${discount.discount_id}`, {
+            onError: () => {
+                openPopUp("Ocurrió un error al eliminar el descuento", true);
+            },
+            onSuccess: () => {
+                openPopUp("Se eliminó correctamente el descuento", false);
+            },
+        });
+    };
+
     return (
         <div
             className={
@@ -22,13 +37,14 @@ const Discount = ({ discount, ...props }) => {
         >
             <TextToSpeech position="rightTop" align="vertical">
                 <h3 className="text-lg font-bold">{discount.discountName}.</h3>
+
                 <p className="text-gray-700">{discount.discountDescription}.</p>
                 <div>
                     {discount.discountImage && (
                         <img
-                            src={discount.discountImage}
+                            src={`${discount.discountImage}`}
                             alt={discount.discountName}
-                            className="w-60 h-60 object-contain select-none"
+                            className="w-60 h-60 object-contain select-none rounded-lg"
                         />
                     )}
                 </div>
@@ -47,7 +63,13 @@ const Discount = ({ discount, ...props }) => {
                     )}
 
                     <p className="text-gray-600 capitalize text-sm ">
-                        publicado por <b>{discount.user_name}.</b>
+                        publicado por{" "}
+                        <Link
+                            className=" font-semibold text-base text-orange-400 underline"
+                            href={`/profile/${discount.user_id}`}
+                        >
+                            {discount.user_name}.
+                        </Link>
                     </p>
                 </div>
                 <div className="text-sm flex justify-between">
@@ -127,6 +149,14 @@ const Discount = ({ discount, ...props }) => {
                     </div>
                 </div>
             </TextToSpeech>
+            {props.user_id == discount.user_id && (
+                <DangerButton
+                    onClick={handleDelete}
+                    className="text-xs font-extralight py-0 bg-red-500"
+                >
+                    Borrar
+                </DangerButton>
+            )}
         </div>
     );
 };

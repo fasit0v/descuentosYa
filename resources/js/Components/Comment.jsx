@@ -1,14 +1,29 @@
-import React from "react";
+import React, { useContext } from "react";
 import ReactTimeago from "react-timeago";
 import spanishStrings from "react-timeago/lib/language-strings/es";
 import buildFormatter from "react-timeago/lib/formatters/buildFormatter";
 import { TextToSpeech } from "tts-react";
-import { router } from "@inertiajs/react";
-import ButtonLike from "@/Components/ButtonLike";
+import { Link, router } from "@inertiajs/react";
+
+import DangerButton from "./DangerButton";
+import context from "@/Context/context";
 
 const formatter = buildFormatter(spanishStrings);
 
 const Comment = ({ comment, ...props }) => {
+    const { openPopUp } = useContext(context);
+
+    const handleDelete = () => {
+        router.delete(`/comments/${comment.comment_id}`, {
+            onError: () => {
+                openPopUp("Ocurrió un error al eliminar el comentario", true);
+            },
+            onSuccess: () => {
+                openPopUp("Se eliminó correctamente el comentario", false);
+            },
+        });
+    };
+
     return (
         <div
             className={
@@ -32,7 +47,12 @@ const Comment = ({ comment, ...props }) => {
                     )}
 
                     <p className="text-gray-600 capitalize text-sm ">
-                        <b>{comment.user_name}.</b>
+                        <Link
+                            className=" font-semibold text-base text-orange-400 underline"
+                            href={`/profile/${comment.user_id}`}
+                        >
+                            {comment.user_name}.
+                        </Link>
                     </p>
                 </div>
                 <p className="text-gray-700">
@@ -44,7 +64,7 @@ const Comment = ({ comment, ...props }) => {
                         <img
                             src={comment.commentImage}
                             alt={comment.commentName}
-                            className="w-60 h-60 object-contain select-none"
+                            className="w-48 h-48 object-contain select-none"
                         />
                     )}
                 </div>
@@ -74,6 +94,14 @@ const Comment = ({ comment, ...props }) => {
                     </div>
                 </div>
             </TextToSpeech>
+            {props.user_id == comment.user_id && (
+                <DangerButton
+                    onClick={handleDelete}
+                    className="text-xs font-extralight py-0 bg-red-500"
+                >
+                    Borrar
+                </DangerButton>
+            )}
         </div>
     );
 };
