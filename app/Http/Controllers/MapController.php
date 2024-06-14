@@ -121,9 +121,7 @@ class MapController extends Controller
             ->get();
         }
         
-        foreach ($places as $place) {
-                $place->placeImage = $place->placeImage ? base64_encode($place->placeImage) : null;
-            }
+        
 
         $placeCategories= DB::table("place_categories")->get();
 

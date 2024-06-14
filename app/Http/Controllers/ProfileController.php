@@ -24,7 +24,10 @@ class ProfileController extends Controller
 
         $user = User::findOrFail($user);
 
-        $discount = Discount::select([
+        $userId =$request->user()->id ?? null;
+
+        if ($userId) {
+            $discount = Discount::select([
                 "users.id as user_id",
                 "users.name as user_name",
                 "users.image as user_image",
@@ -59,6 +62,47 @@ class ProfileController extends Controller
             ])
             ->paginate(10);;
 
+        } else {
+            $discount = Discount::select([
+                "users.id as user_id",
+                "users.name as user_name",
+                "users.image as user_image",
+                "discounts.discountCreatedAt",
+                "discounts.discountDescription",
+                "discounts.discountEndsAt",
+                "discounts.discountImage",
+                "discounts.discountName",
+                "discounts.discountUpdatedAt",
+                "discounts.id as discount_id",
+                
+                DB::raw("COUNT(likes.id) AS likesQuantity"),
+                DB::raw("COUNT(comments.id) AS commentsQuantity")
+                
+            ])
+            ->join("users", "discounts.user_id", "=", "users.id")
+            ->leftJoin("likes", "likes.discount_id", "=", "discounts.id")
+            ->leftJoin("comments","discounts.id","=","comments.discount_id")
+            ->where("discounts.user_id","=",$user->id)
+            ->orderBy("discounts.discountCreatedAt", "desc")
+            ->groupBy([
+                "users.id",
+                "users.name",
+                "users.image",
+                "discounts.discountCreatedAt",
+                "discounts.discountDescription",
+                "discounts.discountEndsAt",
+                "discounts.discountImage",
+                "discounts.discountName",
+                "discounts.discountUpdatedAt",
+                "discounts.id",
+            ])
+            ->paginate(10);;
+
+        }
+        
+
+
+        
         return Inertia::render("Profile/Show",[
             "data"=> [
                 "discount" => $discount,

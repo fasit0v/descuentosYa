@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string("placeName", 256);
             $table->string("placeAddress", 256);
-            $table->binary("placeImage")->nullable();
+            $table->string("placeImage")->nullable();
             $table->string("placeLongitude", 20); // Cambio a cadena de texto
             $table->string("placeLatitude", 20);  // Cambio a cadena de texto
             $table->unsignedBigInteger("placeCategory_id");
