@@ -19,11 +19,20 @@ export default function Show(props) {
         <AuthenticatedLayout auth={props.auth} errors={props.errors}>
             <div className="bg-white shadow-md rounded-lg p-4 ">
                 <div className="flex items-center  mb-4">
-                    <img
-                        src={user.image}
-                        alt="User Profile"
-                        className="rounded-full h-20 w-20 flex items-center justify-center object-contain"
-                    />
+                    {user.image ? (
+                        <img
+                            src={user.image}
+                            alt="User Profile"
+                            className="rounded-full h-20 w-20 flex items-center justify-center object-contain"
+                        />
+                    ) : (
+                        <img
+                            src={"/image/user.png"}
+                            alt="User Profile"
+                            className="rounded-full h-20 w-20 flex items-center justify-center object-contain"
+                        />
+                    )}
+
                     <div className="ml-4 w-full">
                         <TextToSpeech position="topCenter" align="horizontal">
                             <h2 className="text-xl font-semibold text-gray-800">
@@ -58,7 +67,7 @@ export default function Show(props) {
                             )}
                         </TextToSpeech>
                     </div>
-                    {props.auth.user.id == user.id && (
+                    {props.auth.user?.id == user.id && (
                         <DangerButton
                             onClick={() => router.get("/profileconfig")}
                             className="px-1 py-1 text-xs"
@@ -67,10 +76,11 @@ export default function Show(props) {
                         </DangerButton>
                     )}
                 </div>
-
+                <h3 className="text-orange-400 font-semibold text-lg">
+                    Descuentos Publicados
+                </h3>
                 <DiscountPaginate
                     discounts={discount.data}
-                    user_id={props.auth.user.id}
                     links={discount.links}
                 />
             </div>

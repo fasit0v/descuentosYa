@@ -30,7 +30,6 @@ const DiscountPaginate = ({
                     <Discount
                         key={discount.discount_id || discount.id}
                         discount={discount}
-                        user_id={user_id}
                     />
                 ))}
             </div>

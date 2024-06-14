@@ -3,7 +3,7 @@ import ReactTimeago from "react-timeago";
 import spanishStrings from "react-timeago/lib/language-strings/es";
 import buildFormatter from "react-timeago/lib/formatters/buildFormatter";
 import { TextToSpeech } from "tts-react";
-import { Link, router } from "@inertiajs/react";
+import { Link, router, usePage } from "@inertiajs/react";
 
 import DangerButton from "./DangerButton";
 import context from "@/Context/context";
@@ -12,6 +12,8 @@ const formatter = buildFormatter(spanishStrings);
 
 const Comment = ({ comment, ...props }) => {
     const { openPopUp } = useContext(context);
+
+    const { auth } = usePage().props;
 
     const handleDelete = () => {
         router.delete(`/comments/${comment.comment_id}`, {
@@ -94,7 +96,7 @@ const Comment = ({ comment, ...props }) => {
                     </div>
                 </div>
             </TextToSpeech>
-            {props.user_id == comment.user_id && (
+            {auth && auth.user?.id == comment.user_id && (
                 <DangerButton
                     onClick={handleDelete}
                     className="text-xs font-extralight py-0 bg-red-500"

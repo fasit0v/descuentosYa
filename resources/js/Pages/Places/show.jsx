@@ -8,11 +8,7 @@ import CreateFormDiscount from "./partialDiscount/createFormDiscount";
 export default function Show(props) {
     const { place, discountData } = props.data;
 
-    console.log(props);
-
-    const imageUrl = place.placeImage
-        ? `data:image/jpeg;base64,${place.placeImage}`
-        : null;
+    const imageUrl = place.placeImage;
 
     return (
         <AuthenticatedLayout auth={props.auth} errors={props.errors}>
@@ -93,7 +89,6 @@ export default function Show(props) {
                             currentPage={discountData.current_page}
                             lastPage={discountData.last_page}
                             links={discountData.links}
-                            user_id={props.auth.user.id}
                         />
                     </div>
                 </div>

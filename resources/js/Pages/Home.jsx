@@ -11,6 +11,8 @@ export default function Welcome(props) {
 
     const [selectedPlace, setSelectedPlace] = useState(null);
 
+    console.log(data);
+
     const handleMarkerClick = (place) => {
         setSelectedPlace(place);
     };
@@ -103,9 +105,8 @@ function MarkerPlace({ placeQuantityDiscount, onClick, onDoubleClick }) {
 }
 
 function Popup({ place, onClose }) {
-    const imageUrl = place.placeImage
-        ? `data:image/jpeg;base64,${place.placeImage}`
-        : null;
+    console.log(place);
+
     return (
         <aside
             className=" absolute top-20 w-64 "
@@ -113,7 +114,7 @@ function Popup({ place, onClose }) {
         >
             <div className=" border border-orange-200 bg-white p-4 rounded-b-md  capitalize flex justify-center flex-col">
                 <img
-                    src={imageUrl}
+                    src={place.placeImage}
                     className=" h-40 aspect-square rounded-lg"
                 />
                 <h3 className="text-xl text-orange-400 pb-[1.2rem] font-bold">
