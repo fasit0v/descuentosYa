@@ -9,22 +9,9 @@ use App\Http\Controllers\PlaceController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\RoleController;
-use App\Http\Controllers\UserRoleController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
 
 
 /* Home */
@@ -36,21 +23,19 @@ Route::get('/acerca', function () {
 })->name('acerca');
 
 
-
-/* Places */
+/* Places with discounts */
 Route::get("/places/{place}", [PlaceController::class,"show"]);
 
-/* comments */
-Route::get("/places/{place}/discount/{discount}",[DiscountController::class, "show"]);
+/* Discount  */
+Route::resource("discounts", DiscountController::class)->only(["store", "update","destroy" ])->middleware(["auth"]);
 
-Route::post("/comment", [CommentController::class, "store"])->middleware(["auth"]);
-
-
-/* Discount */
-Route::resource("discounts", DiscountController::class)->only(["store" ])->middleware(["auth"]);
+Route::get("/discounts/{discount}",[DiscountController::class, "show"]);
 
 /* Likes */
 Route::post("/likes",[LikeController::class,"like"])->middleware(["auth"]);
+
+/* Comments */
+Route::resource("/comments", CommentController::class)->only([ "store", "update", "destroy"])->middleware(["auth"]);
 
 /* Reportes TODO */
 Route::resource("reportes", ReportController::class)->only(["index", "store"])->middleware(["auth"]);
@@ -63,11 +48,12 @@ Route::resource("permissions", PermissionsController::class)->only(["store", "up
 
 Route::post("/userRoles",[RoleController::class, "userToRole"])->middleware(["auth"]);
 
+Route::get("/profile/{user}",[ProfileController::class,"show"]);
+
 Route::middleware('auth')->group(function () {
-    Route::get("profile",[ProfileController::class,"show"])->name("profile");
-    Route::get('/profile/config', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile/config', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile/config', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/profileconfig', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profileconfig', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profileconfig', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
 require __DIR__.'/auth.php';

@@ -11,7 +11,8 @@ class MapController extends Controller
 {
     public function index(Request $request){   
         
-        
+        $currentDateTime = now();
+
         if (isset($request->rubro, $request->descuento)) {
             $places = Place::select(
                 "places.id",
@@ -22,7 +23,7 @@ class MapController extends Controller
                 "place_categories.placeCategoryName",
                 "places.placeCategory_id",
                 "places.placeImage",
-                DB::raw('COUNT(discounts.id) AS discountQuantity')
+                DB::raw("(SELECT COUNT(*) FROM discounts WHERE discounts.place_id = places.id AND discounts.discountEndsAt > '{$currentDateTime}') AS discountQuantity")
             )
             ->join("place_categories", "place_categories.id", "=", "places.placeCategory_id")
             ->leftJoin("discounts", "discounts.place_id", "=", "places.id")
@@ -51,7 +52,7 @@ class MapController extends Controller
                 "place_categories.placeCategoryName",
                 "places.placeCategory_id",
                 "places.placeImage",
-                DB::raw('COUNT(discounts.id) AS discountQuantity')
+                DB::raw("(SELECT COUNT(*) FROM discounts WHERE discounts.place_id = places.id AND discounts.discountEndsAt > '{$currentDateTime}') AS discountQuantity")
             )
             ->join("place_categories", "place_categories.id", "=", "places.placeCategory_id")
             ->leftJoin("discounts", "discounts.place_id", "=", "places.id")
@@ -77,7 +78,7 @@ class MapController extends Controller
                 "place_categories.placeCategoryName",
                 "places.placeCategory_id",
                 "places.placeImage",
-                DB::raw('COUNT(discounts.id) AS discountQuantity')
+                DB::raw("(SELECT COUNT(*) FROM discounts WHERE discounts.place_id = places.id AND discounts.discountEndsAt > '{$currentDateTime}') AS discountQuantity")
             )
             ->join("place_categories", "place_categories.id", "=", "places.placeCategory_id")
             ->leftJoin("discounts", "discounts.place_id", "=", "places.id")
@@ -103,7 +104,7 @@ class MapController extends Controller
                 "place_categories.placeCategoryName",
                 "places.placeCategory_id",
                 "places.placeImage",
-                DB::raw('COUNT(discounts.id) AS discountQuantity')
+                DB::raw("(SELECT COUNT(*) FROM discounts WHERE discounts.place_id = places.id AND discounts.discountEndsAt > '{$currentDateTime}') AS discountQuantity")
             )
             ->join("place_categories", "place_categories.id", "=", "places.placeCategory_id")
             ->leftJoin("discounts", "discounts.place_id", "=", "places.id")

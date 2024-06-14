@@ -111,9 +111,14 @@ export default function Authenticated({ auth, header, children }) {
                                                         {auth.user.email}
                                                     </div>
                                                     <Dropdown.Link
-                                                        href={route("profile")}
+                                                        href={`/profile/${auth.user.id}`}
                                                     >
                                                         Perfil
+                                                    </Dropdown.Link>
+                                                    <Dropdown.Link
+                                                        href={`/profileconfig`}
+                                                    >
+                                                        Configuración
                                                     </Dropdown.Link>
                                                     <Dropdown.Link
                                                         href={route("logout")}
@@ -250,9 +255,14 @@ export default function Authenticated({ auth, header, children }) {
                                                     {auth.user.email}
                                                 </div>
                                                 <ResponsiveNavLink
-                                                    href={route("profile")}
+                                                    href={`/profile/${auth.user.id}`}
                                                 >
                                                     Perfil
+                                                </ResponsiveNavLink>
+                                                <ResponsiveNavLink
+                                                    href={`/profileconfig`}
+                                                >
+                                                    Configuración
                                                 </ResponsiveNavLink>
                                                 <ResponsiveNavLink
                                                     method="post"

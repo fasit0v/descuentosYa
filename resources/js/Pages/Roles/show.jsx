@@ -116,6 +116,10 @@ export default function Show(props) {
                                             >
                                                 Borrar
                                             </th>
+                                            <th
+                                                scope="col"
+                                                className="px-6 py-3"
+                                            ></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -174,18 +178,6 @@ export default function Show(props) {
                                                         disabled
                                                     />
                                                 </th>
-                                                {props.auth.permissionsInRoute.some(
-                                                    (i) => i.canUpdate == 1
-                                                ) && (
-                                                    <td className="px-6 py-4 text-right">
-                                                        <a
-                                                            href="#"
-                                                            className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                                                        >
-                                                            Actualizar
-                                                        </a>
-                                                    </td>
-                                                )}
 
                                                 {props.auth.permissionsInRoute.some(
                                                     (i) => i.canDelete == 1
